@@ -24,4 +24,4 @@ export interface Route {
   thumbnail?: string;
 }
 
-export type View = 'home' | 'explorer' | 'my-routes' | 'profile' | 'tracking' | 'gallery';
+export type View = 'home' | 'explorer' | 'my-routes' | 'profile' | 'tracking' | 'gallery' | 'clubhouse';

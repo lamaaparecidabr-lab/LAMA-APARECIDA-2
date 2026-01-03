@@ -4,11 +4,16 @@ import { Sidebar } from './components/Sidebar';
 import { RouteTracker } from './components/RouteTracker';
 import { MapView } from './components/MapView';
 import { View, User, Route } from './types';
-import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap, Map, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap, Map, Volume2, VolumeX, Maximize2, MapPin, Navigation } from 'lucide-react';
 import { getRouteInsights } from './services/geminiService';
 
 const LAMA_LOGO_URL = 'https://raw.githubusercontent.com/lamaaparecidabr-lab/LAMA-APARECIDA/411b86094f7e7539386b7340eb607162cae150b5/components/logo.jpg';
 const YOUTUBE_ID = '-VzuMRXCizo';
+
+// Coordenadas precisas para R. X-011 - Sitios Santa Luzia
+const CLUBHOUSE_COORDS = { lat: -16.790924, lng: -49.231221 };
+const CLUBHOUSE_ADDRESS = "R. X-011 - Sitios Santa Luzia, Aparecida de Goiânia - GO, 74922-570";
+const CLUBHOUSE_MARK_NAME = "l.a.m.a. aparecida casa club";
 
 const INITIAL_ROUTES: Route[] = [
   {
@@ -195,7 +200,7 @@ const App: React.FC = () => {
                 </div>
                 <h3 className="text-3xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none mb-4 md:mb-6">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
                 <p className="text-zinc-400 max-w-2xl text-sm md:text-xl leading-relaxed font-light mb-6 md:mb-10 line-clamp-2 md:line-clamp-none">
-                  Unindo a irmandade sob os valores da maior associação de Moto Turismo do Mundo. Em Aparecida de Goiânia, forjamos o futuro sobre duas rodas.
+                  Unindo a irmandade sob os values da maior associação de Moto Turismo do Mundo. Em Aparecida de Goiânia, forjamos o futuro sobre duas rodas.
                 </p>
                 <div className="flex flex-wrap gap-4 md:gap-6 pointer-events-auto">
                    <button onClick={() => setView('explorer')} className="bg-white text-black px-6 md:px-12 py-3.5 md:py-5 rounded-xl md:rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[9px] md:text-[11px] hover:bg-yellow-500 transition-all shadow-2xl">Destinos</button>
@@ -217,6 +222,83 @@ const App: React.FC = () => {
                   <p className="text-zinc-600 text-[9px] md:text-[11px] uppercase font-black tracking-[0.3em] mt-2 md:mt-3">{stat.label}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {currentView === 'clubhouse' && (
+          <div className="space-y-12 animate-in slide-in-from-right-12 duration-1000">
+            <header className="flex items-center gap-4 md:gap-6">
+               <div className="w-2 md:w-3 h-10 md:h-14 bg-yellow-500 rounded-full shadow-[0_0_20px_rgba(234,179,8,0.5)]"></div>
+               <h2 className="text-4xl md:text-6xl font-oswald font-black text-white italic uppercase tracking-tighter">Casa <span className="text-yellow-500">Club</span></h2>
+            </header>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
+              <div className="space-y-10 order-2 lg:order-1">
+                <div className="bg-zinc-950 p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] border border-zinc-900 relative overflow-hidden shadow-3xl">
+                  <div className="absolute top-0 right-0 p-10 opacity-5">
+                    <MapPin size={120} />
+                  </div>
+                  <div className="relative z-10 space-y-8">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-yellow-500 p-3 rounded-2xl"><Shield size={24} className="text-black" /></div>
+                      <span className="text-zinc-600 font-black uppercase text-[10px] tracking-widest">Sede Oficial Aparecida de Goiânia</span>
+                    </div>
+                    <h3 className="text-4xl md:text-5xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">Ponto de <span className="text-yellow-500">Encontro</span></h3>
+                    <p className="text-zinc-400 text-lg md:text-xl font-light leading-relaxed">
+                      Nossa Casa Club é o coração do L.A.M.A. em Aparecida. Onde a irmandade se reúne, planeja missões e celebra a liberdade.
+                    </p>
+                    <div className="pt-6 space-y-6">
+                      <div className="flex items-start gap-5">
+                        <MapPin className="text-yellow-500 shrink-0 mt-1" size={24} />
+                        <div>
+                          <p className="text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-1">Localização</p>
+                          <p className="text-white font-bold text-lg">{CLUBHOUSE_ADDRESS}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-5">
+                        <Calendar className="text-yellow-500 shrink-0 mt-1" size={24} />
+                        <div>
+                          <p className="text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-1">Reuniões</p>
+                          <p className="text-white font-bold text-lg">Consulte a escala semanal no grupo oficial.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <a 
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CLUBHOUSE_MARK_NAME)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white text-black py-6 rounded-3xl font-black uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-yellow-500 transition-all shadow-2xl active:scale-95"
+                  >
+                    Google Maps <ExternalLink size={18} />
+                  </a>
+                  <a 
+                    href={`https://waze.com/ul?q=${encodeURIComponent(CLUBHOUSE_MARK_NAME)}&navigate=yes`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-zinc-900 border border-zinc-800 text-[#33CCFF] py-6 rounded-3xl font-black uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-4 hover:border-[#33CCFF]/50 transition-all shadow-2xl active:scale-95"
+                  >
+                    Abrir no Waze <Navigation size={18} />
+                  </a>
+                </div>
+              </div>
+
+              <div className="h-[400px] lg:h-auto order-1 lg:order-2 rounded-[3rem] md:rounded-[4rem] overflow-hidden border border-zinc-800 shadow-3xl relative">
+                <MapView 
+                  points={[{...CLUBHOUSE_COORDS, timestamp: Date.now()}]} 
+                  className="w-full h-full opacity-80" 
+                  isInteractive 
+                />
+                <div className="absolute top-10 left-10 z-20 bg-black/60 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-2xl">
+                  <span className="text-[10px] font-black uppercase text-yellow-500 tracking-[0.2em] flex items-center gap-3">
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full animate-ping"></div> Radar da Sede Ativo
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         )}

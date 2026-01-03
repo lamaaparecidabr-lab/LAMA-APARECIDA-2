@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Compass, Map, User, LogOut, Radio, Image as ImageIcon, Shield } from 'lucide-react';
+import { Home, Compass, Map, User, LogOut, Radio, Image as ImageIcon, Shield, MapPin } from 'lucide-react';
 import { View } from '../types';
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ const LAMA_LOGO_URL = 'https://raw.githubusercontent.com/lamaaparecidabr-lab/LAM
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout }) => {
   const menuItems = [
     { id: 'home', icon: Home, label: 'Início' },
+    { id: 'clubhouse', icon: MapPin, label: 'Casa Club' },
     { id: 'explorer', icon: Compass, label: 'Icônicas' },
     { id: 'tracking', icon: Radio, label: 'Gravar' },
     { id: 'my-routes', icon: Map, label: 'Rotas' },
@@ -42,13 +43,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
           </div>
         </div>
 
-        <nav className="flex-1 px-6 py-8">
-          <ul className="space-y-4">
+        <nav className="flex-1 px-6 py-8 overflow-y-auto custom-scrollbar">
+          <ul className="space-y-3">
             {menuItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => setView(item.id as View)}
-                  className={`w-full flex items-center gap-6 px-7 py-5 rounded-[2rem] transition-all relative group overflow-hidden ${
+                  className={`w-full flex items-center gap-6 px-7 py-4 rounded-[2rem] transition-all relative group overflow-hidden ${
                     currentView === item.id
                       ? 'bg-zinc-900/50 text-yellow-500 border border-yellow-500/20 shadow-[0_10px_30px_-10px_rgba(234,179,8,0.2)]'
                       : 'text-zinc-700 hover:bg-zinc-900/20 hover:text-zinc-400'
@@ -57,8 +58,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
                   {currentView === item.id && (
                     <div className="absolute left-0 w-2 h-8 bg-yellow-500 rounded-r-full shadow-[0_0_20px_rgba(234,179,8,0.6)] animate-pulse"></div>
                   )}
-                  <item.icon size={22} className={currentView === item.id ? 'scale-110' : 'group-hover:scale-110 transition-transform duration-500'} />
-                  <span className="font-black uppercase tracking-[0.25em] text-[10px] italic leading-none">{item.label}</span>
+                  <item.icon size={20} className={currentView === item.id ? 'scale-110' : 'group-hover:scale-110 transition-transform duration-500'} />
+                  <span className="font-black uppercase tracking-[0.25em] text-[9px] italic leading-none">{item.label}</span>
                 </button>
               </li>
             ))}
@@ -72,34 +73,34 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
           </div>
           <button 
             onClick={onLogout} 
-            className="w-full flex items-center gap-6 px-7 py-6 text-zinc-800 hover:text-red-600 hover:bg-red-600/5 rounded-[2rem] transition-all group"
+            className="w-full flex items-center gap-6 px-7 py-5 text-zinc-800 hover:text-red-600 hover:bg-red-600/5 rounded-[2rem] transition-all group"
           >
-            <LogOut size={24} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="font-black uppercase tracking-[0.25em] text-[10px]">Sair</span>
+            <LogOut size={22} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="font-black uppercase tracking-[0.25em] text-[9px]">Sair</span>
           </button>
         </div>
       </aside>
 
-      {/* Mobile Bottom Navigation - Increased Z-Index to avoid map overlap */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-2 py-3 z-[2000] flex justify-around items-center shadow-[0_-15px_50px_rgba(0,0,0,0.9)]">
-        {menuItems.slice(0, 4).map((item) => (
+      {/* Mobile Bottom Navigation - Updated with Clubhouse */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-1 py-3 z-[2000] flex justify-around items-center shadow-[0_-15px_50px_rgba(0,0,0,0.9)]">
+        {menuItems.slice(0, 5).map((item) => (
           <button
             key={item.id}
             onClick={() => setView(item.id as View)}
-            className={`flex flex-col items-center gap-1.5 px-3 py-2 rounded-2xl transition-all ${
+            className={`flex flex-col items-center gap-1.5 px-2 py-2 rounded-2xl transition-all ${
               currentView === item.id ? 'text-yellow-500' : 'text-zinc-600'
             }`}
           >
-            <item.icon size={20} strokeWidth={currentView === item.id ? 3 : 2} />
-            <span className="text-[9px] font-black uppercase tracking-widest">{item.label}</span>
+            <item.icon size={18} strokeWidth={currentView === item.id ? 3 : 2} />
+            <span className="text-[7px] font-black uppercase tracking-widest">{item.label}</span>
           </button>
         ))}
         <button
           onClick={onLogout}
-          className="flex flex-col items-center gap-1.5 px-3 py-2 text-red-600/70"
+          className="flex flex-col items-center gap-1.5 px-2 py-2 text-red-600/70"
         >
-          <LogOut size={20} />
-          <span className="text-[9px] font-black uppercase tracking-widest">Sair</span>
+          <LogOut size={18} />
+          <span className="text-[7px] font-black uppercase tracking-widest">Sair</span>
         </button>
       </nav>
     </>
