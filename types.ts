@@ -22,6 +22,7 @@ export interface Route {
   points: RoutePoint[];
   status: 'planejada' | 'concluída' | 'ativa';
   thumbnail?: string;
+  isOfficial?: boolean;
 }
 
 export type View = 'home' | 'explorer' | 'my-routes' | 'profile' | 'tracking' | 'gallery' | 'clubhouse';

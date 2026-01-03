@@ -25,7 +25,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex w-80 bg-black border-r border-zinc-900 flex-col h-screen sticky top-0 z-40 transition-all duration-700 shadow-2xl">
+      <aside className="hidden md:flex w-80 bg-black border-r border-zinc-900 flex-col h-screen sticky top-0 z-40 shadow-2xl">
         <div className="p-10 flex flex-row items-center gap-6">
           <div className="relative group shrink-0">
             <div className="absolute inset-0 bg-yellow-500/20 blur-3xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
@@ -56,9 +56,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
                   }`}
                 >
                   {currentView === item.id && (
-                    <div className="absolute left-0 w-2 h-8 bg-yellow-500 rounded-r-full shadow-[0_0_20px_rgba(234,179,8,0.6)] animate-pulse"></div>
+                    <div className="absolute left-0 w-2 h-8 bg-yellow-500 rounded-r-full shadow-[0_0_20px_rgba(234,179,8,0.6)]"></div>
                   )}
-                  <item.icon size={20} className={currentView === item.id ? 'scale-110' : 'group-hover:scale-110 transition-transform duration-500'} />
+                  <item.icon size={20} className={currentView === item.id ? 'scale-110' : ''} />
                   <span className="font-black uppercase tracking-[0.25em] text-[9px] italic leading-none">{item.label}</span>
                 </button>
               </li>
@@ -67,10 +67,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
         </nav>
 
         <div className="p-8 border-t border-zinc-900/50">
-          <div className="bg-zinc-900/30 rounded-3xl p-4 mb-6 flex items-center gap-4 border border-zinc-900/50 group hover:border-red-600/30 transition-colors">
-             <div className="bg-red-600/10 p-2 rounded-xl group-hover:bg-red-600/20 transition-colors"><Shield size={16} className="text-red-600" /></div>
-             <span className="text-[9px] font-black uppercase tracking-widest text-zinc-600 leading-tight">Nível de Acesso:<br/><span className="text-white">Capitão de Estrada</span></span>
-          </div>
           <button 
             onClick={onLogout} 
             className="w-full flex items-center gap-6 px-7 py-5 text-zinc-800 hover:text-red-600 hover:bg-red-600/5 rounded-[2rem] transition-all group"
@@ -81,30 +77,35 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
         </div>
       </aside>
 
-      {/* Mobile Bottom Navigation - Agora com todos os itens incluindo Perfil */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-0.5 py-3 z-[2000] flex justify-around items-center shadow-[0_-15px_50px_rgba(0,0,0,0.9)] overflow-x-auto">
-        <div className="flex w-full justify-around min-w-max px-2">
+      {/* Mobile Bottom Navigation - Agora com scroll horizontal e garantindo todos os itens */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-2 py-3 z-[2000] shadow-[0_-15px_50px_rgba(0,0,0,0.9)] overflow-x-auto no-scrollbar">
+        <div className="flex w-full min-w-max justify-around items-center gap-4 px-4">
           {menuItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setView(item.id as View)}
-              className={`flex flex-col items-center gap-1.5 px-2.5 py-1 rounded-xl transition-all ${
+              className={`flex flex-col items-center gap-1.5 px-3 py-1 rounded-xl transition-all ${
                 currentView === item.id ? 'text-yellow-500 scale-110' : 'text-zinc-600'
               }`}
             >
-              <item.icon size={16} strokeWidth={currentView === item.id ? 3 : 2} />
-              <span className="text-[6px] font-black uppercase tracking-widest leading-none">{item.label}</span>
+              <item.icon size={18} strokeWidth={currentView === item.id ? 3 : 2} />
+              <span className="text-[7px] font-black uppercase tracking-widest leading-none">{item.label}</span>
             </button>
           ))}
           <button
             onClick={onLogout}
-            className="flex flex-col items-center gap-1.5 px-2.5 py-1 text-red-600/70"
+            className="flex flex-col items-center gap-1.5 px-3 py-1 text-red-600/70"
           >
-            <LogOut size={16} />
-            <span className="text-[6px] font-black uppercase tracking-widest leading-none">Sair</span>
+            <LogOut size={18} />
+            <span className="text-[7px] font-black uppercase tracking-widest leading-none">Sair</span>
           </button>
         </div>
       </nav>
+      
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </>
   );
 };
