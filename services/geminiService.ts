@@ -2,7 +2,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 /* A chave API é injetada pelo Vite via 'define' no config */
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Fix: Use mandatory named parameter for apiKey and direct process.env.API_KEY access
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getRouteInsights = async (routeName: string, location: string) => {
   try {
@@ -25,12 +26,13 @@ export const getRouteInsights = async (routeName: string, location: string) => {
       }
     });
 
+    // Fix: Access response text via property as per standard
     const text = response.text;
     if (!text) {
       throw new Error("Resposta vazia do modelo");
     }
 
-    return JSON.parse(text);
+    return JSON.parse(text.trim());
   } catch (error) {
     console.error("Erro no Gemini:", error);
     return {
