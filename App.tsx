@@ -181,8 +181,16 @@ const App: React.FC = () => {
                   <div className="absolute inset-0 z-20 p-6 md:p-16 flex flex-col justify-end pointer-events-none">
                     <h3 className="text-3xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none mb-4">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
                     <p className="text-zinc-400 max-w-2xl text-sm md:text-xl leading-relaxed font-light mb-8">Unindo a irmandade sob os valores da maior associação de Moto Turismo do Mundo.</p>
-                    <div className="flex flex-wrap gap-4 pointer-events-auto">
+                    <div className="flex flex-wrap gap-4 pointer-events-auto items-center">
                        <button onClick={() => setView('clubhouse')} className="bg-white text-black px-6 md:px-12 py-3.5 md:py-5 rounded-xl md:rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[9px] md:text-[11px] hover:bg-yellow-500 transition-all shadow-2xl">Visitar Sede</button>
+                       
+                       {/* Novos botões de controle do vídeo */}
+                       <button onClick={toggleMute} className="bg-zinc-900/80 backdrop-blur-md text-white p-3.5 md:p-5 rounded-xl md:rounded-[1.5rem] hover:bg-yellow-500 hover:text-black transition-all shadow-2xl border border-white/10">
+                         {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                       </button>
+                       <a href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} target="_blank" rel="noopener noreferrer" className="bg-zinc-900/80 backdrop-blur-md text-white p-3.5 md:p-5 rounded-xl md:rounded-[1.5rem] hover:bg-blue-600 transition-all shadow-2xl border border-white/10">
+                         <Maximize2 size={20} />
+                       </a>
                     </div>
                   </div>
                 </section>
