@@ -136,10 +136,10 @@ const App: React.FC = () => {
                   <img src={LAMA_LOGO_URL} alt="Logo" className="relative w-28 h-28 object-contain" />
                 </div>
                 <div>
-                  <div className="flex items-center mb-2">
-                    <span className="text-yellow-500 font-black uppercase tracking-[0.2em] text-xs md:text-sm">LATIN AMERICAN MOTORCYCLE ASSOCIATION</span>
+                  <div className="flex items-center mb-1">
+                    <span className="text-yellow-500 font-black uppercase tracking-[0.2em] text-sm md:text-lg">LATIN AMERICAN MOTORCYCLE ASSOCIATION</span>
                   </div>
-                  <h1 className="text-4xl md:text-6xl font-oswald font-black text-white uppercase italic tracking-tighter leading-[0.8] mt-2">
+                  <h1 className="text-3xl md:text-5xl font-oswald font-black text-white uppercase italic tracking-tighter leading-[0.8] mt-2">
                     Capítulo <span className="text-yellow-500">Aparecida</span>
                   </h1>
                 </div>

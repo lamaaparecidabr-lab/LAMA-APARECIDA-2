@@ -9,7 +9,7 @@ interface SidebarProps {
   onLogout: () => void;
 }
 
-const LAMA_LOGO_URL = 'https://i.postimg.cc/q7S7Yp4G/lama-logo.png';
+const LAMA_LOGO_URL = 'https://raw.githubusercontent.com/lamaaparecidabr-lab/LAMA-APARECIDA/411b86094f7e7539386b7340eb607162cae150b5/components/logo.jpg';
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout }) => {
   const menuItems = [
@@ -30,11 +30,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
         </div>
         <div className="hidden md:block relative">
           <div className="flex flex-col">
-            <h1 className="font-oswald text-4xl font-black tracking-tighter uppercase italic leading-[0.75] text-white">
+            <h1 className="font-oswald text-3xl font-black tracking-[0.10em] uppercase italic leading-[0.75] text-white">
               L.A.M.A.
             </h1>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-yellow-500 font-black uppercase tracking-[0.2em] text-[12px] font-oswald italic">Aparecida</span>
+              <span className="text-yellow-500 font-black uppercase tracking-[0.2em] text-[15px] font-oswald italic">Aparecida</span>
             </div>
           </div>
         </div>
