@@ -179,26 +179,40 @@ const App: React.FC = () => {
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   ></iframe>
                   {/* Conteúdo Overlay do Vídeo */}
-                  <div className="absolute inset-0 z-20 p-8 md:p-16 flex flex-col justify-between pointer-events-none">
+                  <div className="absolute inset-0 z-20 p-5 md:p-16 flex flex-col justify-between pointer-events-none">
                     <div className="space-y-4 md:space-y-6">
                       <h3 className="text-4xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
                       <p className="text-zinc-400 max-w-2xl text-sm md:text-xl leading-relaxed font-light">Unindo a irmandade sob os valores da maior associação de Moto Turismo do Mundo.</p>
                     </div>
                     
-                    <div className="flex flex-wrap gap-4 pointer-events-auto items-center">
-                       <button onClick={() => setView('clubhouse')} className="bg-white text-black px-8 md:px-12 py-4 md:py-5 rounded-2xl md:rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[10px] md:text-[11px] hover:bg-yellow-500 transition-all shadow-2xl">Visitar Sede</button>
-                       
-                       <button onClick={toggleMute} className="bg-zinc-900/80 backdrop-blur-md text-white p-4 md:p-5 rounded-2xl md:rounded-[1.5rem] hover:bg-yellow-500 hover:text-black transition-all shadow-2xl border border-white/10">
-                         {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                    {/* Botões lado a lado no "pé" da janela no mobile */}
+                    <div className="flex flex-row gap-2 md:gap-4 pointer-events-auto items-center mt-auto">
+                       <button 
+                         onClick={() => setView('clubhouse')} 
+                         className="flex-1 md:flex-none bg-white text-black px-4 md:px-12 py-3.5 md:py-5 rounded-xl md:rounded-[1.8rem] font-black uppercase tracking-[0.15em] md:tracking-[0.2em] text-[9px] md:text-[11px] hover:bg-yellow-500 transition-all shadow-2xl truncate"
+                       >
+                         Visitar Sede
                        </button>
-                       <a href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} target="_blank" rel="noopener noreferrer" className="bg-zinc-900/80 backdrop-blur-md text-white p-4 md:p-5 rounded-2xl md:rounded-[1.5rem] hover:bg-blue-600 transition-all shadow-2xl border border-white/10">
-                         <Maximize2 size={20} />
+                       
+                       <button 
+                         onClick={toggleMute} 
+                         className="bg-zinc-900/80 backdrop-blur-md text-white p-3.5 md:p-5 rounded-xl md:rounded-[1.5rem] hover:bg-yellow-500 hover:text-black transition-all shadow-2xl border border-white/10 shrink-0"
+                       >
+                         {isMuted ? <VolumeX size={18} className="md:w-5 md:h-5" /> : <Volume2 size={18} className="md:w-5 md:h-5" />}
+                       </button>
+                       
+                       <a 
+                         href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} 
+                         target="_blank" 
+                         rel="noopener noreferrer" 
+                         className="bg-zinc-900/80 backdrop-blur-md text-white p-3.5 md:p-5 rounded-xl md:rounded-[1.5rem] hover:bg-blue-600 transition-all shadow-2xl border border-white/10 shrink-0"
+                       >
+                         <Maximize2 size={18} className="md:w-5 md:h-5" />
                        </a>
                     </div>
                   </div>
                 </section>
 
-                {/* Seção de estatísticas reduzida no mobile para compensar o vídeo maior */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
                   {[
                     { icon: Users, label: 'Membros', value: '18', color: 'text-yellow-500' },
