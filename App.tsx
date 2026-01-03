@@ -40,12 +40,12 @@ const iconicRoutes: Route[] = [
   {
     id: 'i4',
     title: 'Serra do Rio do Rastro',
-    description: 'A estrada mais espetacular do Brasil. Localizada em Santa Catarina, possui 284 curvas fechadas e uma subida épica com visual alpino inesquecível.',
+    description: 'Considerada uma das estradas mais espetaculares do mundo. Localizada em SC, possui 284 curvas fechadas e uma subida épica com visual alpino.',
     distance: '35 km',
     difficulty: 'Lendária',
     points: [{ lat: -28.3845, lng: -49.5524, timestamp: 0 }],
     status: 'planejada',
-    thumbnail: 'https://images.unsplash.com/photo-1598540891464-9da993639908?q=80&w=1200&auto=format&fit=crop',
+    thumbnail: 'https://destinosnotaveis.com.br/wp-content/uploads/2022/08/Serra_do_Rio_do_Rastro-1024x640.jpg',
     isOfficial: true
   },
   {
@@ -215,7 +215,7 @@ const App: React.FC = () => {
                   <div className="absolute inset-0 z-20 p-5 md:p-16 flex flex-col justify-between pointer-events-none">
                     <div className="space-y-4 md:space-y-6">
                       <h3 className="text-4xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
-                      <p className="text-zinc-400 max-w-2xl text-sm md:text-xl leading-relaxed font-light">Unindo a irmandade sob os valores da maior associação de Moto Turismo do Mundo.</p>
+                      <p className="text-zinc-400 max-w-2xl text-sm md:text-xl leading-relaxed font-light">Unindo a irmandade sob os values da maior associação de Moto Turismo do Mundo.</p>
                     </div>
                     
                     <div className="flex flex-row gap-2 md:gap-4 pointer-events-auto items-center mt-auto">
@@ -295,10 +295,10 @@ const App: React.FC = () => {
                     <div key={route.id} className="bg-zinc-950 rounded-[2.5rem] overflow-hidden border border-zinc-900 group shadow-2xl flex flex-col relative">
                       {route.isOfficial && (
                         <div className="absolute top-6 left-6 z-30 pointer-events-none transform -rotate-[12deg] drop-shadow-2xl">
-                          <div className="bg-white border-[4px] border-red-700 p-1 rounded-sm shadow-black/60 shadow-2xl">
-                            <div className="border-[2px] border-red-700/80 px-5 py-2 flex flex-col items-center">
-                              <span className="text-[12px] font-black uppercase tracking-[0.4em] text-red-700 leading-none">Oficial</span>
-                              <span className="text-[18px] font-oswald font-black uppercase tracking-[0.1em] text-red-700 leading-tight">L.A.M.A.</span>
+                          <div className="bg-zinc-50 border-[4px] border-red-700 p-1 rounded-sm shadow-black/40 shadow-xl">
+                            <div className="border-[2px] border-red-700/80 px-4 py-1.5 flex flex-col items-center">
+                              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-red-700 leading-none">Oficial</span>
+                              <span className="text-[16px] font-oswald font-black uppercase tracking-[0.1em] text-red-700 leading-tight">L.A.M.A.</span>
                             </div>
                           </div>
                         </div>
@@ -307,10 +307,7 @@ const App: React.FC = () => {
                         <img 
                           src={route.thumbnail} 
                           alt={route.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1469033051329-71bb59ff3b3d?q=80&w=1200&auto=format&fit=crop';
-                          }}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]" 
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
                       </div>
@@ -367,7 +364,7 @@ const App: React.FC = () => {
             {currentView === 'gallery' && (
                <div className="flex flex-col items-center justify-center min-h-[500px] text-center space-y-8">
                 <ImageIcon size={60} className="text-yellow-500 opacity-80" />
-                <h3 className="text-4xl font-oswald font-black text-white uppercase italic tracking-tighter">Galeria de <span className="text-blue-500">Missões</span></h3>
+                <h3 className="text-4xl font-oswald font-black text-white uppercase italic tracking-tighter">Galeria de Missões</h3>
                 <a href="https://www.facebook.com/lamaaparecidabr/photos" target="_blank" rel="noreferrer" className="bg-zinc-900 hover:bg-yellow-500 hover:text-black border border-zinc-800 text-white px-8 py-5 rounded-2xl font-black uppercase tracking-[0.3em] flex items-center gap-3 transition-all">
                   Álbuns Oficiais <ExternalLink size={16} />
                 </a>
