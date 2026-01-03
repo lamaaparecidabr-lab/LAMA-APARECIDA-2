@@ -27,7 +27,7 @@ const INITIAL_ROUTES: Route[] = [
     distance: '160 km',
     difficulty: 'Fácil',
     points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
-    status: 'concluída',
+    status: 'planejada',
     thumbnail: 'https://images.unsplash.com/photo-1515777315835-281b94c9589f?q=80&w=800&auto=format&fit=crop'
   },
   {
