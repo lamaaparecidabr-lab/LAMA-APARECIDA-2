@@ -88,37 +88,32 @@ export const RouteTracker: React.FC<RouteTrackerProps> = ({ onSave }) => {
   };
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
+    <div className="space-y-6 md:space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
       <header>
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-1.5 h-8 bg-red-600 rounded-full"></div>
-          <h2 className="text-5xl font-oswald font-black uppercase tracking-tighter text-white italic">
+          <div className="w-1.5 h-6 md:h-8 bg-red-600 rounded-full"></div>
+          <h2 className="text-3xl md:text-5xl font-oswald font-black uppercase tracking-tighter text-white italic">
             Gravar <span className="text-yellow-500">Rota</span>
           </h2>
         </div>
-        <p className="text-yellow-500/60 font-black uppercase tracking-[0.2em] text-[10px] ml-5">Monitoramento de Telemetria em Tempo Real</p>
+        <p className="text-yellow-500/60 font-black uppercase tracking-[0.2em] text-[8px] md:text-[10px] ml-4 md:ml-5">Telemetria em Tempo Real</p>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-        <div className="lg:col-span-3">
-          <MapView points={points} className="h-[600px] border-yellow-500/10 shadow-2xl rounded-[3rem]" isInteractive />
+      <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 md:gap-10">
+        <div className="lg:col-span-3 order-2 lg:order-1">
+          <MapView points={points} className="h-[400px] md:h-[600px] border-yellow-500/10 shadow-2xl rounded-[2rem] md:rounded-[3rem]" isInteractive />
         </div>
 
-        <div className="space-y-8">
-          <div className="bg-zinc-950 p-10 rounded-[2.5rem] border border-zinc-900 space-y-8 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-red-600/5 blur-2xl"></div>
-            <div className="space-y-6">
+        <div className="space-y-6 md:space-y-8 order-1 lg:order-2">
+          <div className="bg-zinc-950 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-zinc-900 space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden">
+            <div className="space-y-4 md:space-y-6">
               <div className="flex items-center justify-between">
-                <span className="text-zinc-600 font-black uppercase text-[10px] tracking-widest flex items-center gap-2"><Clock size={16} className="text-yellow-500" /> Tempo</span>
-                <span className="text-3xl font-mono text-white font-black italic">{formatTime(elapsed)}</span>
+                <span className="text-zinc-600 font-black uppercase text-[8px] md:text-[10px] tracking-widest flex items-center gap-2"><Clock size={14} className="text-yellow-500" /> Tempo</span>
+                <span className="text-2xl md:text-3xl font-mono text-white font-black italic">{formatTime(elapsed)}</span>
               </div>
-              <div className="flex items-center justify-between border-t border-zinc-900 pt-6">
-                <span className="text-zinc-600 font-black uppercase text-[10px] tracking-widest flex items-center gap-2"><Gauge size={16} className="text-red-600" /> Km Rodados</span>
-                <span className="text-3xl font-mono text-white font-black italic">{(points.length * 0.05).toFixed(2)}</span>
-              </div>
-              <div className="flex items-center justify-between border-t border-zinc-900 pt-6">
-                <span className="text-zinc-600 font-black uppercase text-[10px] tracking-widest flex items-center gap-2"><MapPin size={16} className="text-yellow-500" /> Checkpoints</span>
-                <span className="text-3xl font-mono text-white font-black italic">{points.length}</span>
+              <div className="flex items-center justify-between border-t border-zinc-900 pt-4 md:pt-6">
+                <span className="text-zinc-600 font-black uppercase text-[8px] md:text-[10px] tracking-widest flex items-center gap-2"><Gauge size={14} className="text-red-600" /> Km</span>
+                <span className="text-2xl md:text-3xl font-mono text-white font-black italic">{(points.length * 0.05).toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -126,22 +121,22 @@ export const RouteTracker: React.FC<RouteTrackerProps> = ({ onSave }) => {
           {!isRecording ? (
             <button
               onClick={startTracking}
-              className="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-6 rounded-[2rem] font-black text-xs transition-all shadow-xl shadow-yellow-500/20 uppercase tracking-[0.25em] flex items-center justify-center gap-3"
+              className="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 md:py-6 rounded-2xl md:rounded-[2rem] font-black text-[10px] md:text-xs transition-all shadow-xl shadow-yellow-500/20 uppercase tracking-[0.2em] md:tracking-[0.25em] flex items-center justify-center gap-3"
             >
-              <Play fill="currentColor" size={20} /> Gravar Rota
+              <Play fill="currentColor" size={18} /> Iniciar Gravação
             </button>
           ) : (
             <button
               onClick={stopTracking}
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-6 rounded-[2rem] font-black text-xs transition-all shadow-xl shadow-red-600/20 uppercase tracking-[0.25em] flex items-center justify-center gap-3 animate-pulse"
+              className="w-full bg-red-600 hover:bg-red-700 text-white py-4 md:py-6 rounded-2xl md:rounded-[2rem] font-black text-[10px] md:text-xs transition-all shadow-xl shadow-red-600/20 uppercase tracking-[0.2em] md:tracking-[0.25em] flex items-center justify-center gap-3 animate-pulse"
             >
-              <Square fill="currentColor" size={20} /> Encerrar Missão
+              <Square fill="currentColor" size={18} /> Encerrar Missão
             </button>
           )}
 
-          <div className="bg-zinc-900/30 p-6 rounded-2xl border border-zinc-800 flex items-center gap-4">
-             <Shield className="text-red-600 shrink-0" size={20} />
-             <p className="text-[10px] text-zinc-500 font-bold uppercase leading-relaxed italic">Sua localização é enviada apenas para o radar interno do motoclube.</p>
+          <div className="bg-zinc-900/30 p-4 rounded-xl border border-zinc-800 flex items-center gap-3">
+             <Shield className="text-red-600 shrink-0" size={16} />
+             <p className="text-[8px] md:text-[10px] text-zinc-500 font-bold uppercase leading-relaxed italic">Dados protegidos pelo radar interno.</p>
           </div>
         </div>
       </div>
