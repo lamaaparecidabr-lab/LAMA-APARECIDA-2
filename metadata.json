@@ -1,6 +1,6 @@
 {
-  "name": "Portal LAMA Aparecida",
-  "description": "Sede Virtual do Capítulo Aparecida de Goiânia",
+  "name": "L.A.M.A. Aparecida",
+  "description": "Sede Virtual do L.A.M.A. Aparecida de Goiânia",
   "requestFramePermissions": [
     "geolocation"
   ]

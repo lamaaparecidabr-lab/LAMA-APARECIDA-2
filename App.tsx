@@ -44,7 +44,7 @@ const App: React.FC = () => {
     e.preventDefault();
     setUser({
       id: '1',
-      name: 'Membro Capítulo Aparecida',
+      name: 'Membro L.A.M.A. Aparecida',
       email: loginForm.email,
       bikeModel: 'Harley Davidson Fat Boy',
       avatar: 'https://picsum.photos/seed/lama-biker/100/100'
@@ -70,12 +70,12 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-oswald text-white font-black uppercase italic tracking-tighter">Capítulo Aparecida</h2>
+            <h2 className="text-4xl font-oswald text-white font-black uppercase italic tracking-tighter">L.A.M.A. Aparecida</h2>
             <div className="h-1 w-12 bg-yellow-500 mx-auto mt-3 rounded-full"></div>
           </div>
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 ml-5">Credencial</label>
+              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 ml-5">Usuário</label>
               <input
                 type="email"
                 required
@@ -86,7 +86,7 @@ const App: React.FC = () => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 ml-5">Chave Interna</label>
+              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 ml-5">Senha</label>
               <input
                 type="password"
                 required
@@ -119,11 +119,10 @@ const App: React.FC = () => {
                   <img src={LAMA_LOGO_URL} alt="Logo" className="relative w-28 h-28 object-contain" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="w-8 h-[1px] bg-yellow-500"></span>
-                    <span className="text-yellow-500 font-black uppercase tracking-[0.5em] text-[10px]">Portal de Comando</span>
+                  <div className="flex items-center mb-2">
+                    <span className="text-yellow-500 font-black uppercase tracking-[0.2em] text-xs md:text-sm">LATIN AMERICAN MOTORCYCLE ASSOCIATION</span>
                   </div>
-                  <h1 className="text-6xl md:text-8xl font-oswald font-black text-white uppercase italic tracking-tighter leading-[0.8] mt-2">
+                  <h1 className="text-4xl md:text-6xl font-oswald font-black text-white uppercase italic tracking-tighter leading-[0.8] mt-2">
                     Capítulo <span className="text-yellow-500">Aparecida</span>
                   </h1>
                 </div>

@@ -13,7 +13,7 @@ const LAMA_LOGO_URL = 'https://i.postimg.cc/q7S7Yp4G/lama-logo.png';
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout }) => {
   const menuItems = [
-    { id: 'home', icon: Home, label: 'Portal Início' },
+    { id: 'home', icon: Home, label: 'Início' },
     { id: 'explorer', icon: Compass, label: 'Radar Destinos' },
     { id: 'my-routes', icon: Map, label: 'Minhas Missões' },
     { id: 'tracking', icon: Radio, label: 'Telemetria' },
@@ -23,14 +23,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
 
   return (
     <aside className="w-28 md:w-80 bg-black border-r border-zinc-900 flex flex-col h-screen sticky top-0 z-40 transition-all duration-700 shadow-2xl">
-      <div className="p-10 flex flex-col md:flex-row items-center gap-6">
-        <div className="relative group">
+      <div className="p-10 flex flex-col md:flex-row items-center gap-5">
+        <div className="relative group shrink-0">
           <div className="absolute inset-0 bg-yellow-500/10 blur-2xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
           <img src={LAMA_LOGO_URL} alt="LAMA" className="relative w-14 h-14 object-contain filter drop-shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
         </div>
         <div className="hidden md:block">
-           <h1 className="font-oswald text-2xl font-black tracking-tighter uppercase italic leading-none text-white">
-            Capítulo <br/><span className="text-yellow-500 text-[11px] tracking-[0.4em] font-black">Aparecida</span>
+           <h1 className="font-oswald text-xl font-black tracking-tighter uppercase italic leading-[0.9] text-white">
+            L.A.M.A. <br/><span className="text-yellow-500">Aparecida</span>
           </h1>
         </div>
       </div>
