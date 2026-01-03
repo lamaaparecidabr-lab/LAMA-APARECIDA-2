@@ -196,7 +196,7 @@ const App: React.FC = () => {
                 </div>
                 <h3 className="text-6xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none mb-6">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
                 <p className="text-zinc-400 max-w-3xl text-xl leading-relaxed font-light mb-10">
-                  Unindo a irmandade sob os valores da maior associação da América Latina. Em Aparecida de Goiânia, forjamos o futuro sobre duas rodas.
+                  Unindo a irmandade sob os valores da maior associação de Moto Turismo do Mundo. Em Aparecida de Goiânia, forjamos o futuro sobre duas rodas.
                 </p>
                 <div className="flex flex-wrap gap-6 pointer-events-auto">
                    <button onClick={() => setView('explorer')} className="bg-white text-black px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-yellow-500 transition-all transform hover:-translate-y-1 shadow-2xl">Visualizar Destinos</button>
