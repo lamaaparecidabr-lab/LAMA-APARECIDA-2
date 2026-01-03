@@ -30,12 +30,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
         </div>
         <div className="hidden md:block relative">
           <div className="flex flex-col">
-            <h1 className="font-oswald text-2xl font-black tracking-tighter uppercase italic leading-none text-white">
+            <h1 className="font-oswald text-4xl font-black tracking-tighter uppercase italic leading-[0.75] text-white">
               L.A.M.A.
             </h1>
-            <h2 className="font-oswald text-2xl font-black tracking-tighter uppercase italic leading-none text-yellow-500 mt-1">
-              Aparecida
-            </h2>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-yellow-500 font-black uppercase tracking-[0.2em] text-[12px] font-oswald italic">Aparecida</span>
+            </div>
           </div>
         </div>
       </div>

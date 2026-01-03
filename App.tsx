@@ -117,7 +117,7 @@ const App: React.FC = () => {
               Acessar Sede <Zap size={16} />
             </button>
           </form>
-          <p className="mt-10 text-center text-zinc-600 text-[9px] uppercase font-black tracking-widest">Respeito & Liberdade • Est. 2010</p>
+          <p className="mt-10 text-center text-zinc-600 text-[9px] uppercase font-black tracking-widest">Respeito & Liberdade • Est. 2022</p>
         </div>
       </div>
     );
