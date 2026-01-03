@@ -26,7 +26,7 @@ const iconicRoutes: Route[] = [
     difficulty: 'Moderada',
     points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
     status: 'planejada',
-    thumbnail: 'https://images.unsplash.com/photo-1471478331149-c72f17e33c73?q=80&w=800&auto=format&fit=crop'
+    thumbnail: 'https://images.unsplash.com/photo-14714478331149-c72f17e33c73?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'i2',
@@ -169,7 +169,7 @@ const App: React.FC = () => {
                   </div>
                 </header>
 
-                <section className="relative rounded-[2.5rem] md:rounded-[4rem] overflow-hidden bg-zinc-900 border border-zinc-800 aspect-video md:aspect-[21/9] shadow-3xl group">
+                <section className="relative rounded-[2.5rem] md:rounded-[4rem] overflow-hidden bg-zinc-900 border border-zinc-800 aspect-[4/5] md:aspect-[21/9] shadow-3xl group">
                   <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black via-transparent to-transparent"></div>
                   <iframe 
                     ref={videoRef}
@@ -178,26 +178,27 @@ const App: React.FC = () => {
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   ></iframe>
-                  {/* Conteúdo Overlay do Vídeo - Atualizado para topo/baixo */}
-                  <div className="absolute inset-0 z-20 p-6 md:p-16 flex flex-col justify-between pointer-events-none">
-                    <div className="space-y-4">
-                      <h3 className="text-3xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
+                  {/* Conteúdo Overlay do Vídeo */}
+                  <div className="absolute inset-0 z-20 p-8 md:p-16 flex flex-col justify-between pointer-events-none">
+                    <div className="space-y-4 md:space-y-6">
+                      <h3 className="text-4xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
                       <p className="text-zinc-400 max-w-2xl text-sm md:text-xl leading-relaxed font-light">Unindo a irmandade sob os valores da maior associação de Moto Turismo do Mundo.</p>
                     </div>
                     
                     <div className="flex flex-wrap gap-4 pointer-events-auto items-center">
-                       <button onClick={() => setView('clubhouse')} className="bg-white text-black px-6 md:px-12 py-3.5 md:py-5 rounded-xl md:rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[9px] md:text-[11px] hover:bg-yellow-500 transition-all shadow-2xl">Visitar Sede</button>
+                       <button onClick={() => setView('clubhouse')} className="bg-white text-black px-8 md:px-12 py-4 md:py-5 rounded-2xl md:rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[10px] md:text-[11px] hover:bg-yellow-500 transition-all shadow-2xl">Visitar Sede</button>
                        
-                       <button onClick={toggleMute} className="bg-zinc-900/80 backdrop-blur-md text-white p-3.5 md:p-5 rounded-xl md:rounded-[1.5rem] hover:bg-yellow-500 hover:text-black transition-all shadow-2xl border border-white/10">
+                       <button onClick={toggleMute} className="bg-zinc-900/80 backdrop-blur-md text-white p-4 md:p-5 rounded-2xl md:rounded-[1.5rem] hover:bg-yellow-500 hover:text-black transition-all shadow-2xl border border-white/10">
                          {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
                        </button>
-                       <a href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} target="_blank" rel="noopener noreferrer" className="bg-zinc-900/80 backdrop-blur-md text-white p-3.5 md:p-5 rounded-xl md:rounded-[1.5rem] hover:bg-blue-600 transition-all shadow-2xl border border-white/10">
+                       <a href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} target="_blank" rel="noopener noreferrer" className="bg-zinc-900/80 backdrop-blur-md text-white p-4 md:p-5 rounded-2xl md:rounded-[1.5rem] hover:bg-blue-600 transition-all shadow-2xl border border-white/10">
                          <Maximize2 size={20} />
                        </a>
                     </div>
                   </div>
                 </section>
 
+                {/* Seção de estatísticas reduzida no mobile para compensar o vídeo maior */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
                   {[
                     { icon: Users, label: 'Membros', value: '18', color: 'text-yellow-500' },
@@ -205,10 +206,10 @@ const App: React.FC = () => {
                     { icon: Calendar, label: 'Missões', value: '28', color: 'text-yellow-500' },
                     { icon: Trophy, label: 'Anos', value: '03', color: 'text-red-600' },
                   ].map((stat, i) => (
-                    <div key={i} className="bg-zinc-900/30 border border-zinc-900/50 p-6 md:p-10 rounded-2xl md:rounded-[3rem] backdrop-blur-sm">
-                      <stat.icon size={20} className={`${stat.color} mb-4`} />
-                      <p className="text-3xl md:text-5xl font-oswald font-black text-white italic tracking-tighter leading-none">{stat.value}</p>
-                      <p className="text-zinc-600 text-[9px] md:text-[11px] uppercase font-black tracking-[0.3em] mt-2">{stat.label}</p>
+                    <div key={i} className="bg-zinc-900/30 border border-zinc-900/50 p-4 md:p-10 rounded-2xl md:rounded-[3rem] backdrop-blur-sm">
+                      <stat.icon size={16} className={`${stat.color} mb-3 md:mb-4`} />
+                      <p className="text-2xl md:text-5xl font-oswald font-black text-white italic tracking-tighter leading-none">{stat.value}</p>
+                      <p className="text-zinc-600 text-[8px] md:text-[11px] uppercase font-black tracking-[0.3em] mt-1 md:mt-2">{stat.label}</p>
                     </div>
                   ))}
                 </div>
