@@ -1,10 +1,14 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Square, MapPin, Gauge, Clock, Radio, Shield } from 'lucide-react';
-import { RoutePoint } from '../types';
+import { RoutePoint, Route } from '../types';
 import { MapView } from './MapView';
 
-export const RouteTracker: React.FC = () => {
+interface RouteTrackerProps {
+  onSave?: (route: Route) => void;
+}
+
+export const RouteTracker: React.FC<RouteTrackerProps> = ({ onSave }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [points, setPoints] = useState<RoutePoint[]>([]);
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -49,10 +53,31 @@ export const RouteTracker: React.FC = () => {
     if (watchId.current !== null) {
       navigator.geolocation.clearWatch(watchId.current);
     }
+    
+    const distance = (points.length * 0.05).toFixed(2);
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('pt-BR');
+    const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+    if (onSave && points.length > 0) {
+      const newRoute: Route = {
+        id: Math.random().toString(36).substr(2, 9),
+        title: `Missão de ${dateStr} - ${timeStr}`,
+        description: `Rota gravada em tempo real pelo membro. Duração: ${formatTime(elapsed)}.`,
+        distance: `${distance} km`,
+        difficulty: points.length > 50 ? 'Moderada' : 'Fácil',
+        points: [...points],
+        status: 'concluída',
+        thumbnail: 'https://images.unsplash.com/photo-1458178351025-a764d88e0261?q=80&w=800&auto=format&fit=crop'
+      };
+      onSave(newRoute);
+    }
+
     setIsRecording(false);
     setStartTime(null);
     setElapsed(0);
-    alert("Percurso salvo com sucesso na sede virtual!");
+    setPoints([]);
+    alert("Percurso salvo com sucesso na aba 'Rotas Concluídas'!");
   };
 
   const formatTime = (sec: number) => {

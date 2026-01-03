@@ -4,7 +4,7 @@ import { Sidebar } from './components/Sidebar';
 import { RouteTracker } from './components/RouteTracker';
 import { MapView } from './components/MapView';
 import { View, User, Route } from './types';
-import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap } from 'lucide-react';
+import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap, Map } from 'lucide-react';
 import { getRouteInsights } from './services/geminiService';
 
 const LAMA_LOGO_URL = 'https://i.postimg.cc/q7S7Yp4G/lama-logo.png';
@@ -29,6 +29,16 @@ const INITIAL_ROUTES: Route[] = [
     points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
     status: 'concluída',
     thumbnail: 'https://images.unsplash.com/photo-1515777315835-281b94c9589f?q=80&w=800&auto=format&fit=crop'
+  },
+  {
+    id: '3',
+    title: 'Los Caracoles (Mendoza - Santiago)',
+    description: 'A lendária travessia dos Andes. Curvas fechadas e altitudes extremas em uma das estradas mais bonitas do mundo.',
+    distance: '364 km',
+    difficulty: 'Lendária',
+    points: [{ lat: -32.8901, lng: -68.8440, timestamp: 0 }],
+    status: 'planejada',
+    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop'
   }
 ];
 
@@ -36,7 +46,7 @@ const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentView, setView] = useState<View>('home');
   const [user, setUser] = useState<User | null>(null);
-  const [routes] = useState<Route[]>(INITIAL_ROUTES);
+  const [routes, setRoutes] = useState<Route[]>(INITIAL_ROUTES);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [insights, setInsights] = useState<any>(null);
 
@@ -52,11 +62,18 @@ const App: React.FC = () => {
     setIsAuthenticated(true);
   };
 
+  const handleSaveRoute = (newRoute: Route) => {
+    setRoutes(prev => [newRoute, ...prev]);
+  };
+
   const fetchInsights = async (route: Route) => {
     setInsights('carregando');
     const data = await getRouteInsights(route.title, 'Aparecida de Goiânia, Brasil');
     setInsights(data);
   };
+
+  const completedRoutes = routes.filter(r => r.status === 'concluída');
+  const iconicRoutes = routes.filter(r => r.status === 'planejada');
 
   if (!isAuthenticated) {
     return (
@@ -148,7 +165,7 @@ const App: React.FC = () => {
                 </p>
                 <div className="flex flex-wrap gap-6">
                    <button onClick={() => setView('explorer')} className="bg-white text-black px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-yellow-500 transition-all transform hover:-translate-y-1 shadow-2xl">Visualizar Destinos</button>
-                   <button onClick={() => setView('tracking')} className="bg-zinc-800/40 backdrop-blur-xl text-white border border-white/10 px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-zinc-700 transition-all transform hover:-translate-y-1">Telemetria GPS</button>
+                   <button onClick={() => setView('tracking')} className="bg-zinc-800/40 backdrop-blur-xl text-white border border-white/10 px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-zinc-700 transition-all transform hover:-translate-y-1">Gravar Minha Rota</button>
                 </div>
               </div>
             </section>
@@ -175,17 +192,17 @@ const App: React.FC = () => {
           <div className="space-y-16 animate-in slide-in-from-right-12 duration-1000">
             <header className="flex items-center gap-6">
                <div className="w-3 h-14 bg-yellow-500 rounded-full shadow-[0_0_20px_rgba(234,179,8,0.5)]"></div>
-               <h2 className="text-6xl font-oswald font-black text-white italic uppercase tracking-tighter">Próximos <span className="text-yellow-500">Destinos</span></h2>
+               <h2 className="text-6xl font-oswald font-black text-white italic uppercase tracking-tighter">Rotas <span className="text-yellow-500">Icônicas</span></h2>
             </header>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {routes.map(route => (
+              {iconicRoutes.map(route => (
                 <div key={route.id} className="bg-zinc-950 rounded-[4rem] overflow-hidden border border-zinc-900 group hover:border-yellow-500/20 transition-all shadow-2xl relative">
                   <div className="relative h-80 overflow-hidden">
                     <img src={route.thumbnail} alt={route.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]" />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
                     <div className="absolute bottom-10 left-10 flex gap-4">
                        <span className="bg-yellow-500 text-black px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">{route.distance}</span>
-                       <span className="bg-white/10 backdrop-blur-xl border border-white/10 text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest">{route.difficulty}</span>
+                       <span className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest ${route.difficulty === 'Lendária' ? 'bg-red-600 text-white' : 'bg-white/10 backdrop-blur-xl border border-white/10 text-white'}`}>{route.difficulty}</span>
                     </div>
                   </div>
                   <div className="p-12 pt-6">
@@ -201,7 +218,50 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {currentView === 'tracking' && <RouteTracker />}
+        {currentView === 'my-routes' && (
+          <div className="space-y-16 animate-in slide-in-from-right-12 duration-1000">
+            <header className="flex items-center gap-6">
+               <div className="w-3 h-14 bg-red-600 rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)]"></div>
+               <h2 className="text-6xl font-oswald font-black text-white italic uppercase tracking-tighter">Rotas <span className="text-yellow-500">Concluídas</span></h2>
+            </header>
+            
+            {completedRoutes.length === 0 ? (
+              <div className="bg-zinc-900/20 border-2 border-dashed border-zinc-800 rounded-[4rem] p-24 text-center">
+                <Map size={64} className="text-zinc-800 mx-auto mb-6" />
+                <h3 className="text-2xl font-oswald font-black text-zinc-600 uppercase tracking-widest">Nenhuma missão finalizada</h3>
+                <p className="text-zinc-700 mt-4 max-w-md mx-auto">Vá para 'Gravar Minha Rota' e registre seu primeiro trajeto oficial na sede virtual.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {completedRoutes.map(route => (
+                  <div key={route.id} className="bg-zinc-950 rounded-[4rem] overflow-hidden border border-zinc-900 group hover:border-red-500/20 transition-all shadow-2xl relative">
+                    <div className="relative h-64 bg-black">
+                      <MapView points={route.points} className="h-full w-full opacity-60 group-hover:opacity-100 transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none"></div>
+                      <div className="absolute bottom-6 left-10 flex gap-4">
+                        <span className="bg-red-600 text-white px-5 py-2 rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl">Finalizada</span>
+                        <span className="bg-yellow-500 text-black px-5 py-2 rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl">{route.distance}</span>
+                      </div>
+                    </div>
+                    <div className="p-10 pt-6">
+                      <h3 className="text-3xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">{route.title}</h3>
+                      <p className="text-zinc-500 text-md mt-4 leading-relaxed font-light line-clamp-2">{route.description}</p>
+                      <div className="mt-8 flex items-center justify-between border-t border-zinc-900 pt-6">
+                        <div className="flex items-center gap-3">
+                           <div className="bg-zinc-800 p-2 rounded-lg"><Gauge size={14} className="text-yellow-500" /></div>
+                           <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Telemetria Salva</span>
+                        </div>
+                        <button onClick={() => setView('tracking')} className="text-yellow-500 font-black uppercase text-[10px] tracking-widest hover:text-white transition-colors">Ver Detalhes</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {currentView === 'tracking' && <RouteTracker onSave={handleSaveRoute} />}
 
         {currentView === 'gallery' && (
           <div className="flex flex-col items-center justify-center min-h-[700px] text-center space-y-12 animate-in zoom-in-95 duration-1000">
