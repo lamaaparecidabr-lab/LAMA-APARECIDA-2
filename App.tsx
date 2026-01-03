@@ -347,7 +347,7 @@ const App: React.FC = () => {
       </main>
 
       {insights && insights !== 'carregando' && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl animate-in fade-in duration-500">
+        <div className="fixed inset-0 z-[3000] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl animate-in fade-in duration-500">
           <div className="bg-zinc-950 border border-zinc-900 p-8 md:p-16 rounded-[2.5rem] md:rounded-[4.5rem] max-w-2xl w-full relative shadow-[0_100px_200px_-50px_rgba(0,0,0,1)] ring-1 ring-white/10">
             <button onClick={() => setInsights(null)} className="absolute top-6 right-6 md:top-12 md:right-12 text-zinc-600 hover:text-white transition-all uppercase font-black text-[9px] md:text-[11px] tracking-[0.3em]">✕ Fechar</button>
             <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12">

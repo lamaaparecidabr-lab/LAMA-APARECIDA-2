@@ -100,8 +100,8 @@ export const RouteTracker: React.FC<RouteTrackerProps> = ({ onSave }) => {
       </header>
 
       <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 md:gap-10">
-        <div className="lg:col-span-3 order-2 lg:order-1">
-          <MapView points={points} className="h-[400px] md:h-[600px] border-yellow-500/10 shadow-2xl rounded-[2rem] md:rounded-[3rem]" isInteractive />
+        <div className="lg:col-span-3 order-2 lg:order-1 relative z-0">
+          <MapView points={points} className="h-[300px] md:h-[600px] border-yellow-500/10 shadow-2xl rounded-[2rem] md:rounded-[3rem] overflow-hidden" isInteractive />
         </div>
 
         <div className="space-y-6 md:space-y-8 order-1 lg:order-2">

@@ -80,8 +80,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
         </div>
       </aside>
 
-      {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-xl border-t border-zinc-900 px-2 py-3 z-50 flex justify-around items-center shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
+      {/* Mobile Bottom Navigation - Increased Z-Index to avoid map overlap */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-2 py-3 z-[2000] flex justify-around items-center shadow-[0_-15px_50px_rgba(0,0,0,0.9)]">
         {menuItems.slice(0, 4).map((item) => (
           <button
             key={item.id}
