@@ -1,13 +1,14 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { RouteTracker } from './components/RouteTracker';
 import { MapView } from './components/MapView';
 import { View, User, Route } from './types';
-import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap, Map } from 'lucide-react';
+import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap, Map, Volume2, VolumeX, Maximize2 } from 'lucide-react';
 import { getRouteInsights } from './services/geminiService';
 
 const LAMA_LOGO_URL = 'https://raw.githubusercontent.com/lamaaparecidabr-lab/LAMA-APARECIDA/411b86094f7e7539386b7340eb607162cae150b5/components/logo.jpg';
+const YOUTUBE_ID = '-VzuMRXCizo';
 
 const INITIAL_ROUTES: Route[] = [
   {
@@ -49,6 +50,8 @@ const App: React.FC = () => {
   const [routes, setRoutes] = useState<Route[]>(INITIAL_ROUTES);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [insights, setInsights] = useState<any>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLIFrameElement>(null);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +63,17 @@ const App: React.FC = () => {
       avatar: 'https://picsum.photos/seed/lama-biker/100/100'
     });
     setIsAuthenticated(true);
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current?.contentWindow) {
+      const command = isMuted ? 'unMute' : 'mute';
+      videoRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: command, args: [] }),
+        '*'
+      );
+      setIsMuted(!isMuted);
+    }
   };
 
   const handleSaveRoute = (newRoute: Route) => {
@@ -149,13 +163,33 @@ const App: React.FC = () => {
             <section className="relative rounded-[4rem] overflow-hidden bg-zinc-900 border border-zinc-800 aspect-video md:aspect-[21/9] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] group ring-1 ring-white/5">
               <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black via-transparent to-transparent"></div>
               <iframe 
+                ref={videoRef}
                 className="w-full h-full object-cover opacity-60 transition-all duration-1000 scale-110 group-hover:scale-100"
-                src="https://www.youtube.com/embed/-VzuMRXCizo?autoplay=1&mute=1&loop=1&playlist=-VzuMRXCizo&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1&origin=https://localhost" 
+                src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_ID}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1`} 
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
               ></iframe>
-              <div className="absolute inset-0 z-20 p-16 flex flex-col justify-end">
+              
+              {/* Controles do Vídeo */}
+              <div className="absolute bottom-10 right-10 z-30 flex gap-4">
+                <button 
+                  onClick={toggleMute}
+                  className="bg-black/50 hover:bg-yellow-500 backdrop-blur-xl border border-white/10 p-4 rounded-2xl text-white hover:text-black transition-all group/btn shadow-2xl"
+                  title={isMuted ? "Desmutar" : "Mutar"}
+                >
+                  {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                </button>
+                <a 
+                  href={`https://www.youtube.com/watch?v=${YOUTUBE_ID}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-black/50 hover:bg-white backdrop-blur-xl border border-white/10 px-6 py-4 rounded-2xl text-white hover:text-black transition-all font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-3 shadow-2xl"
+                >
+                  <Maximize2 size={16} /> Abrir Vídeo
+                </a>
+              </div>
+
+              <div className="absolute inset-0 z-20 p-16 flex flex-col justify-end pointer-events-none">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="bg-red-600 text-white text-[10px] font-black uppercase px-4 py-2 rounded-xl tracking-[0.2em] shadow-xl shadow-red-600/30">Status: Operacional</div>
                   <div className="bg-white/5 backdrop-blur-xl border border-white/10 text-white text-[10px] font-black uppercase px-4 py-2 rounded-xl tracking-[0.2em]">LAMA Worldwide</div>
@@ -164,7 +198,7 @@ const App: React.FC = () => {
                 <p className="text-zinc-400 max-w-3xl text-xl leading-relaxed font-light mb-10">
                   Unindo a irmandade sob os valores da maior associação da América Latina. Em Aparecida de Goiânia, forjamos o futuro sobre duas rodas.
                 </p>
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-6 pointer-events-auto">
                    <button onClick={() => setView('explorer')} className="bg-white text-black px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-yellow-500 transition-all transform hover:-translate-y-1 shadow-2xl">Visualizar Destinos</button>
                    <button onClick={() => setView('tracking')} className="bg-zinc-800/40 backdrop-blur-xl text-white border border-white/10 px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-zinc-700 transition-all transform hover:-translate-y-1">Gravar Minha Rota</button>
                 </div>
