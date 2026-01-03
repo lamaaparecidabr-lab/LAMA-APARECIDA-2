@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
           className="w-full flex items-center gap-6 px-7 py-6 text-zinc-800 hover:text-red-600 hover:bg-red-600/5 rounded-[2rem] transition-all group"
         >
           <LogOut size={24} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="hidden md:block font-black uppercase tracking-[0.25em] text-[10px]">Sair da Sede</span>
+          <span className="hidden md:block font-black uppercase tracking-[0.25em] text-[10px]">Sair</span>
         </button>
       </div>
     </aside>

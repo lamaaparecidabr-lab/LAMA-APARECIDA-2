@@ -114,7 +114,7 @@ const App: React.FC = () => {
               />
             </div>
             <button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-6 rounded-[1.5rem] font-black uppercase tracking-[0.25em] text-xs transition-all shadow-2xl shadow-yellow-500/20 active:scale-95 flex items-center justify-center gap-3">
-              Acessar Sede <Zap size={16} />
+              Acessar <Zap size={16} />
             </button>
           </form>
           <p className="mt-10 text-center text-zinc-600 text-[9px] uppercase font-black tracking-widest">Respeito & Liberdade • Est. 2022</p>
