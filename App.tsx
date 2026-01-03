@@ -172,10 +172,10 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { icon: Users, label: 'Membros Ativos', value: '142', color: 'text-yellow-500' },
+                { icon: Users, label: 'Membros Ativos', value: '18', color: 'text-yellow-500' },
                 { icon: Compass, label: 'Km Percorridos', value: '12.4k', color: 'text-red-600' },
                 { icon: Calendar, label: 'Missões Anuais', value: '28', color: 'text-yellow-500' },
-                { icon: Trophy, label: 'Anos de Estrada', value: '15a', color: 'text-red-600' },
+                { icon: Trophy, label: 'Anos de Estrada', value: '03', color: 'text-red-600' },
               ].map((stat, i) => (
                 <div key={i} className="bg-zinc-900/30 border border-zinc-900/50 p-10 rounded-[3rem] hover:border-yellow-500/30 transition-all group relative overflow-hidden backdrop-blur-sm">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-zinc-800/10 rounded-bl-[3rem]"></div>
