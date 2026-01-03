@@ -7,7 +7,7 @@ import { View, User, Route } from './types';
 import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap, Map } from 'lucide-react';
 import { getRouteInsights } from './services/geminiService';
 
-const LAMA_LOGO_URL = 'https://i.postimg.cc/q7S7Yp4G/lama-logo.png';
+const LAMA_LOGO_URL = 'https://github.com/lamaaparecidabr-lab/LAMA-APARECIDA/blob/main/components/logo.jpg';
 
 const INITIAL_ROUTES: Route[] = [
   {
