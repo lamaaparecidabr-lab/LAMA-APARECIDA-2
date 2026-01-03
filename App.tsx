@@ -149,10 +149,11 @@ const App: React.FC = () => {
             <section className="relative rounded-[4rem] overflow-hidden bg-zinc-900 border border-zinc-800 aspect-video md:aspect-[21/9] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] group ring-1 ring-white/5">
               <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black via-transparent to-transparent"></div>
               <iframe 
-                className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-1000 scale-110 group-hover:scale-100"
-                src="https://youtu.be/-VzuMRXCizo" 
+                className="w-full h-full object-cover opacity-60 transition-all duration-1000 scale-110 group-hover:scale-100"
+                src="https://www.youtube.com/embed/-VzuMRXCizo?autoplay=1&mute=1&loop=1&playlist=-VzuMRXCizo&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1&origin=https://localhost" 
                 frameBorder="0"
-                allow="autoplay"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
               ></iframe>
               <div className="absolute inset-0 z-20 p-16 flex flex-col justify-end">
                 <div className="flex items-center gap-4 mb-6">
@@ -304,14 +305,14 @@ const App: React.FC = () => {
                   <div className="flex items-center gap-6 bg-zinc-900/40 border border-zinc-800/50 px-10 py-6 rounded-[2.2rem] text-zinc-300 backdrop-blur-md">
                     <Bike size={32} className="text-yellow-500" />
                     <div className="flex flex-col text-left">
-                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">Montaria</span>
+                       <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Montaria</span>
                        <span className="font-bold text-white text-xl">{user?.bikeModel}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-6 bg-zinc-900/40 border border-zinc-800/50 px-10 py-6 rounded-[2.2rem] text-zinc-300 backdrop-blur-md">
                     <Trophy size={32} className="text-red-600" />
                     <div className="flex flex-col text-left">
-                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">Distinção</span>
+                       <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Distinção</span>
                        <span className="font-bold text-white text-xl">Honra Capitular</span>
                     </div>
                   </div>
