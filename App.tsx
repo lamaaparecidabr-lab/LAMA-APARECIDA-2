@@ -26,22 +26,22 @@ const iconicRoutes: Route[] = [
     difficulty: 'Moderada',
     points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
     status: 'planejada',
-    thumbnail: 'https://images.unsplash.com/photo-14714478331149-c72f17e33c73?q=80&w=800&auto=format&fit=crop'
+    thumbnail: 'https://images.unsplash.com/photo-1471478331149-c72f17e33c73?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'i2',
     title: 'Rota das Águas Quentes',
-    description: 'Trajeto clássico partindo de Aparecida rumo às estâncias termais da região.',
+    description: 'Trajeto clássico partindo de Aparecida rumo às estâncias termais de Caldas Novas e Rio Quente.',
     distance: '160 km',
     difficulty: 'Fácil',
     points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
     status: 'planejada',
-    thumbnail: 'https://images.unsplash.com/photo-1515777315835-281b94c9589f?q=80&w=800&auto=format&fit=crop'
+    thumbnail: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'i3',
-    title: 'Los Caracoles (Mendoza - Santiago)',
-    description: 'Uma das estradas mais famosas do mundo. Curvas em cotovelo nos Andes ligando Argentina e Chile.',
+    title: 'Los Caracoles (Andes)',
+    description: 'A lendária estrada nos Andes ligando Argentina e Chile. Curvas extremas e visual de tirar o fôlego a mais de 3.000m de altitude.',
     distance: '360 km',
     difficulty: 'Lendária',
     points: [{ lat: -32.8901, lng: -68.8440, timestamp: 0 }],
