@@ -1,6 +1,6 @@
 {
-  "name": "L.A.M.A. Aparecida - Brasil",
-  "description": "Plataforma oficial do L.A.M.A. Aparecida - Brasil para planejamento e registro de rotas.",
+  "name": "Portal LAMA Aparecida",
+  "description": "Sede Virtual do Capítulo Aparecida de Goiânia",
   "requestFramePermissions": [
     "geolocation"
   ]

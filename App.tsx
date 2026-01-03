@@ -1,13 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { RouteTracker } from './components/RouteTracker';
 import { MapView } from './components/MapView';
 import { View, User, Route } from './types';
-import { Plus, Bike, Map as MapIcon, ChevronRight, Info, Shield, Camera, Gauge, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink } from 'lucide-react';
+import { Bike, Compass, Users, Calendar, Trophy, Image as ImageIcon, ExternalLink, Shield, Gauge, ChevronRight, Zap } from 'lucide-react';
 import { getRouteInsights } from './services/geminiService';
 
-// URL do Logo Oficial
 const LAMA_LOGO_URL = 'https://i.postimg.cc/q7S7Yp4G/lama-logo.png';
 
 const INITIAL_ROUTES: Route[] = [
@@ -17,10 +16,7 @@ const INITIAL_ROUTES: Route[] = [
     description: 'Um mergulho na história do Brasil Central, com paisagens típicas do cerrado e estradas desafiadoras.',
     distance: '120 km',
     difficulty: 'Moderada',
-    points: [
-      { lat: -16.7600, lng: -49.2800, timestamp: 0 },
-      { lat: -16.8000, lng: -49.3000, timestamp: 1 },
-    ],
+    points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
     status: 'planejada',
     thumbnail: 'https://images.unsplash.com/photo-1471478331149-c72f17e33c73?q=80&w=800&auto=format&fit=crop'
   },
@@ -30,10 +26,7 @@ const INITIAL_ROUTES: Route[] = [
     description: 'Trajeto clássico partindo de Aparecida rumo às estâncias termais da região.',
     distance: '160 km',
     difficulty: 'Fácil',
-    points: [
-      { lat: -16.7600, lng: -49.2800, timestamp: 0 },
-      { lat: -17.7400, lng: -48.6200, timestamp: 1 },
-    ],
+    points: [{ lat: -16.7600, lng: -49.2800, timestamp: 0 }],
     status: 'concluída',
     thumbnail: 'https://images.unsplash.com/photo-1515777315835-281b94c9589f?q=80&w=800&auto=format&fit=crop'
   }
@@ -43,7 +36,7 @@ const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentView, setView] = useState<View>('home');
   const [user, setUser] = useState<User | null>(null);
-  const [routes, setRoutes] = useState<Route[]>(INITIAL_ROUTES);
+  const [routes] = useState<Route[]>(INITIAL_ROUTES);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [insights, setInsights] = useState<any>(null);
 
@@ -51,7 +44,7 @@ const App: React.FC = () => {
     e.preventDefault();
     setUser({
       id: '1',
-      name: 'Membro L.A.M.A. Aparecida',
+      name: 'Membro Capítulo Aparecida',
       email: loginForm.email,
       bikeModel: 'Harley Davidson Fat Boy',
       avatar: 'https://picsum.photos/seed/lama-biker/100/100'
@@ -59,320 +52,149 @@ const App: React.FC = () => {
     setIsAuthenticated(true);
   };
 
-  const handleAddPlannedRoute = (route: Route) => {
-    setRoutes(prev => prev.map(r => r.id === route.id ? { ...r, status: 'planejada' } : r));
-  };
-
   const fetchInsights = async (route: Route) => {
     setInsights('carregando');
-    const data = await getRouteInsights(route.title, 'Aparecida de Goiânia, Goiás, Brasil');
+    const data = await getRouteInsights(route.title, 'Aparecida de Goiânia, Brasil');
     setInsights(data);
   };
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-6 bg-[url('https://images.unsplash.com/photo-1558981403-c5f91cbba527?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-        <div className="relative w-full max-w-md bg-zinc-900/90 border border-zinc-800 p-10 rounded-3xl shadow-2xl backdrop-blur-md">
-          <div className="flex justify-center mb-8">
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]"></div>
+        <div className="relative w-full max-w-md bg-zinc-900/90 border-t border-l border-white/10 p-12 rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] backdrop-blur-xl ring-1 ring-white/5">
+          <div className="flex justify-center mb-12">
             <div className="relative group">
-              <div className="absolute inset-0 bg-yellow-500 blur-2xl opacity-20"></div>
-              <img 
-                src={LAMA_LOGO_URL} 
-                alt="L.A.M.A. Logo Oficial" 
-                className="w-56 h-56 object-contain relative z-10 drop-shadow-[0_0_20px_rgba(234,179,8,0.4)] transition-transform duration-500" 
-              />
+              <div className="absolute inset-0 bg-yellow-500/20 blur-[50px] rounded-full group-hover:bg-yellow-500/30 transition-all duration-700"></div>
+              <img src={LAMA_LOGO_URL} alt="LAMA Logo" className="relative w-48 h-48 object-contain drop-shadow-2xl" />
             </div>
           </div>
-          <h2 className="text-3xl font-oswald text-center text-white font-bold mb-2 tracking-tight uppercase italic">L.A.M.A. Aparecida</h2>
-          <p className="text-yellow-500/80 text-center mb-8 font-medium uppercase tracking-widest text-[10px]">Irmandade • Respeito • Tradição</p>
-          
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-oswald text-white font-black uppercase italic tracking-tighter">Capítulo Aparecida</h2>
+            <div className="h-1 w-12 bg-yellow-500 mx-auto mt-3 rounded-full"></div>
+          </div>
           <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label className="block text-zinc-400 text-sm font-medium mb-2 uppercase tracking-tighter">Matrícula (E-mail)</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 ml-5">Credencial</label>
               <input
                 type="email"
                 required
-                className="w-full bg-zinc-800 border border-zinc-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/50 transition-all"
-                placeholder="membro@lamaaparecida.com.br"
+                className="w-full bg-black/50 border border-zinc-800 text-white px-7 py-5 rounded-[1.5rem] focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500/50 outline-none transition-all placeholder:text-zinc-800"
+                placeholder="membro@lama.com"
                 value={loginForm.email}
                 onChange={e => setLoginForm({...loginForm, email: e.target.value})}
               />
             </div>
-            <div>
-              <label className="block text-zinc-400 text-sm font-medium mb-2 uppercase tracking-tighter">Senha de Acesso</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 ml-5">Chave Interna</label>
               <input
                 type="password"
                 required
-                className="w-full bg-zinc-800 border border-zinc-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/50 transition-all"
+                className="w-full bg-black/50 border border-zinc-800 text-white px-7 py-5 rounded-[1.5rem] focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500/50 outline-none transition-all placeholder:text-zinc-800"
                 placeholder="••••••••"
                 value={loginForm.password}
                 onChange={e => setLoginForm({...loginForm, password: e.target.value})}
               />
             </div>
-            <button
-              type="submit"
-              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-yellow-500/20 uppercase tracking-widest"
-            >
-              ACESSAR PORTAL
+            <button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-6 rounded-[1.5rem] font-black uppercase tracking-[0.25em] text-xs transition-all shadow-2xl shadow-yellow-500/20 active:scale-95 flex items-center justify-center gap-3">
+              Acessar Sede <Zap size={16} />
             </button>
           </form>
-          <div className="mt-8 text-center text-zinc-600 text-[10px] uppercase font-bold tracking-widest">
-            © 2025 L.A.M.A. Aparecida - Capítulo Brasil
-          </div>
+          <p className="mt-10 text-center text-zinc-600 text-[9px] uppercase font-black tracking-widest">Respeito & Liberdade • Est. 2010</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-black">
+    <div className="flex min-h-screen bg-[#050505] text-zinc-300">
       <Sidebar currentView={currentView} setView={setView} onLogout={() => setIsAuthenticated(false)} />
-      
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
+      <main className="flex-1 p-6 md:p-12 max-w-[1400px] mx-auto w-full overflow-y-auto custom-scrollbar">
         {currentView === 'home' && (
-          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-800 pb-12">
-              <div className="flex items-center gap-6">
-                <div className="bg-zinc-900 p-2 rounded-2xl border border-zinc-800 shadow-xl">
-                  <img src={LAMA_LOGO_URL} alt="Logo Oficial" className="w-16 h-16 md:w-28 md:h-28 object-contain" />
+          <div className="space-y-20 animate-in fade-in zoom-in-95 duration-1000">
+            <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-zinc-900 pb-16">
+              <div className="flex items-center gap-10">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-yellow-500/10 blur-[40px] rounded-full"></div>
+                  <img src={LAMA_LOGO_URL} alt="Logo" className="relative w-28 h-28 object-contain" />
                 </div>
                 <div>
-                  <span className="text-yellow-500 font-bold uppercase tracking-[0.25em] text-[12px] block mb-2">LATIN AMERICAN MOTORCYCLE ASSOCIATION</span>
-                  <h1 className="text-4xl md:text-6xl font-oswald font-bold text-white uppercase mt-6 tracking-tighter italic">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="w-8 h-[1px] bg-yellow-500"></span>
+                    <span className="text-yellow-500 font-black uppercase tracking-[0.5em] text-[10px]">Portal de Comando</span>
+                  </div>
+                  <h1 className="text-6xl md:text-8xl font-oswald font-black text-white uppercase italic tracking-tighter leading-[0.8] mt-2">
                     Capítulo <span className="text-yellow-500">Aparecida</span>
                   </h1>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <div className="text-right hidden md:block">
-                  <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">Situação do Asfalto</p>
-                  <p className="text-yellow-500 font-bold flex items-center justify-end gap-1 text-sm">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div> PRONTO PARA RODAR
-                  </p>
-                </div>
-              </div>
             </header>
 
-            <section className="relative rounded-[2.5rem] overflow-hidden bg-zinc-900 border border-zinc-800 aspect-video md:aspect-[21/9] shadow-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent z-10"></div>
-              
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 grayscale scale-125">
-                <img src={LAMA_LOGO_URL} alt="Background Texture" className="w-full h-full object-contain" />
-              </div>
-
+            <section className="relative rounded-[4rem] overflow-hidden bg-zinc-900 border border-zinc-800 aspect-video md:aspect-[21/9] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] group ring-1 ring-white/5">
+              <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black via-transparent to-transparent"></div>
               <iframe 
-                className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[3s]"
-                src="https://www.youtube.com/embed/S_7iW5D6pSw?autoplay=1&mute=1&loop=1&playlist=S_7iW5D6pSw&controls=0&showinfo=0&rel=0&modestbranding=1" 
-                title="L.A.M.A. Intro Video"
+                className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-1000 scale-110 group-hover:scale-100"
+                src="https://www.youtube.com/embed/S_7iW5D6pSw?autoplay=1&mute=1&loop=1&playlist=S_7iW5D6pSw&controls=0&modestbranding=1&rel=0&showinfo=0" 
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="autoplay"
               ></iframe>
-
-              <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 z-20 space-y-4 max-w-2xl">
-                <div className="bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full w-fit tracking-widest border border-white/20">
-                  Respeito & Honra
+              <div className="absolute inset-0 z-20 p-16 flex flex-col justify-end">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="bg-red-600 text-white text-[10px] font-black uppercase px-4 py-2 rounded-xl tracking-[0.2em] shadow-xl shadow-red-600/30">Status: Operacional</div>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 text-white text-[10px] font-black uppercase px-4 py-2 rounded-xl tracking-[0.2em]">LAMA Worldwide</div>
                 </div>
-                <h3 className="text-4xl md:text-5xl font-oswald font-bold text-white uppercase leading-none italic">
-                  Irmandade <span className="text-yellow-500">Sem Fronteiras.</span>
-                </h3>
-                <p className="text-zinc-300 text-lg font-light leading-relaxed">
-                  Integrando a maior associação de motociclistas da América Latina. O Capítulo Aparecida de Goiânia vive a liberdade e a força do Cerrado.
+                <h3 className="text-6xl md:text-7xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none mb-6">Respeito <span className="text-yellow-500">& Liberdade.</span></h3>
+                <p className="text-zinc-400 max-w-3xl text-xl leading-relaxed font-light mb-10">
+                  Unindo a irmandade sob os valores da maior associação da América Latina. Em Aparecida de Goiânia, forjamos o futuro sobre duas rodas.
                 </p>
-                <div className="pt-2 flex gap-4">
-                  <button onClick={() => setView('explorer')} className="bg-yellow-500 text-black px-8 py-4 rounded-xl font-bold hover:bg-white transition-all flex items-center gap-2 uppercase tracking-widest text-sm shadow-xl shadow-yellow-500/10">
-                    Explorar Destinos <ChevronRight size={18} />
-                  </button>
-                  <button className="bg-zinc-900/50 backdrop-blur-md text-white border border-white/10 px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all uppercase tracking-widest text-sm">
-                    Sede Regional
-                  </button>
+                <div className="flex flex-wrap gap-6">
+                   <button onClick={() => setView('explorer')} className="bg-white text-black px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-yellow-500 transition-all transform hover:-translate-y-1 shadow-2xl">Visualizar Destinos</button>
+                   <button onClick={() => setView('tracking')} className="bg-zinc-800/40 backdrop-blur-xl text-white border border-white/10 px-12 py-5 rounded-[1.8rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-zinc-700 transition-all transform hover:-translate-y-1">Telemetria GPS</button>
                 </div>
               </div>
             </section>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { icon: Users, label: 'Irmãos Ativos', value: '142', color: 'text-yellow-500' },
-                { icon: Compass, label: 'Km Rodados', value: '12.4k', color: 'text-red-600' },
-                { icon: Calendar, label: 'Eventos 2025', value: '28', color: 'text-yellow-500' },
-                { icon: Trophy, label: 'Anos de Estrada', value: '15', color: 'text-red-600' },
+                { icon: Users, label: 'Membros Ativos', value: '142', color: 'text-yellow-500' },
+                { icon: Compass, label: 'Km Percorridos', value: '12.4k', color: 'text-red-600' },
+                { icon: Calendar, label: 'Missões Anuais', value: '28', color: 'text-yellow-500' },
+                { icon: Trophy, label: 'Anos de Estrada', value: '15a', color: 'text-red-600' },
               ].map((stat, i) => (
-                <div key={i} className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-3xl hover:bg-zinc-900 transition-colors group">
-                  <stat.icon size={24} className={`${stat.color} mb-3 group-hover:scale-110 transition-transform`} />
-                  <p className="text-3xl font-oswald font-bold text-white">{stat.value}</p>
-                  <p className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest">{stat.label}</p>
+                <div key={i} className="bg-zinc-900/30 border border-zinc-900/50 p-10 rounded-[3rem] hover:border-yellow-500/30 transition-all group relative overflow-hidden backdrop-blur-sm">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-zinc-800/10 rounded-bl-[3rem]"></div>
+                  <stat.icon size={28} className={`${stat.color} mb-6 group-hover:scale-125 transition-transform duration-700`} />
+                  <p className="text-5xl font-oswald font-black text-white italic tracking-tighter leading-none">{stat.value}</p>
+                  <p className="text-zinc-600 text-[11px] uppercase font-black tracking-[0.3em] mt-3">{stat.label}</p>
                 </div>
               ))}
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-6">
-                <h4 className="text-xl font-bold text-white flex items-center gap-2">
-                  <div className="w-1 h-6 bg-yellow-500 rounded-full"></div>
-                  Agenda Oficial do Capítulo
-                </h4>
-                <div className="space-y-4">
-                  {[
-                    { title: 'Moto-Churrasco Beneficente', date: '15 Abr', desc: 'Arrecadação de alimentos para comunidades de Aparecida.', category: 'Social', special: true },
-                    { title: 'Reunião Mensal de Batedores', date: '22 Abr', desc: 'Definição das novas rotas para o comboio de Maio.', category: 'Oficial', special: false },
-                    { title: 'Viagem para Pirenópolis', date: '01 Mai', desc: 'Saída às 06:00 do Posto de Comando Regional.', category: 'Estrada', special: false },
-                  ].map((event, i) => (
-                    <div key={i} className="group bg-zinc-900 p-5 rounded-2xl border border-zinc-800 hover:border-yellow-500/50 transition-all flex items-center gap-6 cursor-pointer">
-                      <div className={`p-3 rounded-xl text-center min-w-[70px] transition-colors ${event.special ? 'bg-red-600 group-hover:bg-yellow-500' : 'bg-zinc-800 group-hover:bg-yellow-500'}`}>
-                        <p className="text-white group-hover:text-black font-bold leading-none">{event.date.split(' ')[0]}</p>
-                        <p className={`text-[10px] uppercase font-black ${event.special ? 'text-white/80' : 'text-zinc-500'} group-hover:text-black`}>{event.date.split(' ')[1]}</p>
-                      </div>
-                      <div className="flex-1">
-                        <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-tighter">{event.category}</span>
-                        <h5 className="text-white font-bold text-lg">{event.title}</h5>
-                        <p className="text-zinc-400 text-sm">{event.desc}</p>
-                      </div>
-                      <ChevronRight size={20} className="text-zinc-700 group-hover:text-yellow-500 group-hover:translate-x-1 transition-all" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <h4 className="text-xl font-bold text-white flex items-center gap-2">
-                  <div className="w-1 h-6 bg-red-600 rounded-full"></div>
-                  Inteligência L.A.M.A.
-                </h4>
-                <div className="bg-gradient-to-br from-yellow-500/10 to-zinc-900 border border-yellow-500/20 p-8 rounded-[2rem] space-y-4">
-                  <div className="bg-yellow-500 p-3 rounded-2xl w-fit">
-                    <Info className="text-black" size={24} />
-                  </div>
-                  <h5 className="text-xl font-bold text-white leading-tight">Gemini Integrado <br/> <span className="text-yellow-500">IA de Segurança</span></h5>
-                  <p className="text-zinc-400 text-sm leading-relaxed font-medium">
-                    Nossa plataforma usa IA de ponta para analisar rotas no Cerrado, fornecendo dicas de pilotagem e alertas baseados em dados reais.
-                  </p>
-                  <button onClick={() => setView('explorer')} className="text-yellow-500 font-bold text-sm flex items-center gap-2 hover:text-white transition-colors">
-                    Testar na Aba Explorar <ChevronRight size={16} />
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         )}
 
         {currentView === 'explorer' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
-            <header>
-              <h2 className="text-4xl font-oswald font-bold uppercase text-white italic">Próximos <span className="text-yellow-500">Destinos</span></h2>
-              <p className="text-zinc-400 mt-2">Explore e planeje sua próxima aventura saindo de Aparecida.</p>
+          <div className="space-y-16 animate-in slide-in-from-right-12 duration-1000">
+            <header className="flex items-center gap-6">
+               <div className="w-3 h-14 bg-yellow-500 rounded-full shadow-[0_0_20px_rgba(234,179,8,0.5)]"></div>
+               <h2 className="text-6xl font-oswald font-black text-white italic uppercase tracking-tighter">Próximos <span className="text-yellow-500">Destinos</span></h2>
             </header>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {routes.map(route => (
-                <div key={route.id} className="bg-zinc-900 rounded-3xl border border-zinc-800 overflow-hidden flex flex-col md:flex-row h-full group hover:shadow-2xl hover:shadow-yellow-500/5 transition-all">
-                  <div className="md:w-1/2 relative h-64 md:h-auto">
-                    <img src={route.thumbnail} alt={route.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute top-4 left-4 bg-yellow-500 px-3 py-1 rounded-full border border-black/10 text-xs font-bold text-black uppercase">
-                      {route.difficulty}
+                <div key={route.id} className="bg-zinc-950 rounded-[4rem] overflow-hidden border border-zinc-900 group hover:border-yellow-500/20 transition-all shadow-2xl relative">
+                  <div className="relative h-80 overflow-hidden">
+                    <img src={route.thumbnail} alt={route.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
+                    <div className="absolute bottom-10 left-10 flex gap-4">
+                       <span className="bg-yellow-500 text-black px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">{route.distance}</span>
+                       <span className="bg-white/10 backdrop-blur-xl border border-white/10 text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest">{route.difficulty}</span>
                     </div>
                   </div>
-                  <div className="p-8 md:w-1/2 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-yellow-500 transition-colors">{route.title}</h3>
-                      <div className="flex items-center gap-2 text-yellow-500 font-bold mb-4">
-                        <Gauge size={18} /> {route.distance}
-                      </div>
-                      <p className="text-zinc-400 line-clamp-3 text-sm">{route.description}</p>
-                    </div>
-                    
-                    <div className="mt-6 flex flex-col gap-3">
-                      <button 
-                        onClick={() => fetchInsights(route)}
-                        className="w-full bg-zinc-800 hover:bg-zinc-700 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all border border-zinc-700"
-                      >
-                        <Info size={18} className="text-yellow-500" /> Dicas do Gemini
-                      </button>
-                      <button 
-                        onClick={() => handleAddPlannedRoute(route)}
-                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all"
-                      >
-                        MARCAR COMO PLANEJADA <ChevronRight size={18} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {insights && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
-                <div className="bg-zinc-900 border border-yellow-500/30 p-10 rounded-3xl max-w-2xl w-full relative shadow-2xl">
-                  <button onClick={() => setInsights(null)} className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors">Fechar</button>
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="bg-yellow-500 p-3 rounded-2xl">
-                      <Shield className="text-black" size={32} />
-                    </div>
-                    <h3 className="text-3xl font-oswald font-bold text-white uppercase italic">Análise da <span className="text-yellow-500">Rota</span></h3>
-                  </div>
-                  
-                  {insights === 'carregando' ? (
-                    <div className="space-y-4 animate-pulse">
-                      <div className="h-6 bg-zinc-800 rounded-full w-3/4"></div>
-                      <div className="h-6 bg-zinc-800 rounded-full w-1/2"></div>
-                      <div className="h-24 bg-zinc-800 rounded-2xl w-full"></div>
-                    </div>
-                  ) : (
-                    <div className="space-y-8">
-                      <div>
-                        <h4 className="text-yellow-500 font-bold uppercase mb-4 flex items-center gap-2">
-                           <Info size={18} /> Dicas de Segurança
-                        </h4>
-                        <ul className="space-y-4">
-                          {insights.safetyTips.map((tip: string, i: number) => (
-                            <li key={i} className="flex gap-4 p-4 bg-zinc-950 rounded-2xl border border-zinc-800 text-zinc-300">
-                              <span className="text-yellow-500 font-bold">#0{i+1}</span>
-                              {tip}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-red-600 font-bold uppercase mb-3 flex items-center gap-2">
-                          <Compass size={18} /> Destaque Paisagístico
-                        </h4>
-                        <p className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800 text-zinc-300 italic border-l-4 border-red-600">
-                          "{insights.scenicHighlight}"
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {currentView === 'my-routes' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-500">
-             <header className="flex justify-between items-center">
-              <div>
-                <h2 className="text-4xl font-oswald font-bold uppercase text-white italic">Minha <span className="text-yellow-500">Garagem</span></h2>
-                <p className="text-zinc-400 mt-2">Histórico de conquistas e planos futuros.</p>
-              </div>
-              <button onClick={() => setView('tracking')} className="bg-yellow-500 text-black p-4 rounded-2xl transition-all hover:scale-105 shadow-lg shadow-yellow-500/10">
-                <Plus size={24} />
-              </button>
-            </header>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {routes.filter(r => r.status !== 'concluída').map(route => (
-                <div key={route.id} className="bg-zinc-900 rounded-3xl border border-zinc-800 overflow-hidden group">
-                  <MapView points={route.points} className="h-48 group-hover:h-56 transition-all duration-500" />
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-xl font-bold text-white group-hover:text-yellow-500 transition-colors">{route.title}</h3>
-                      <span className="bg-yellow-500/10 text-yellow-500 text-[10px] font-black uppercase px-2 py-1 rounded">Planejada</span>
-                    </div>
-                    <div className="flex items-center justify-between text-zinc-500 text-sm">
-                      <span className="flex items-center gap-1"><MapIcon size={14} className="text-yellow-500" /> {route.distance}</span>
-                      <button className="text-yellow-500 hover:underline font-bold">Ver Mapa</button>
-                    </div>
+                  <div className="p-12 pt-6">
+                    <h3 className="text-4xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">{route.title}</h3>
+                    <p className="text-zinc-500 text-lg mt-6 leading-relaxed font-light">{route.description}</p>
+                    <button onClick={() => fetchInsights(route)} className="mt-10 w-full bg-zinc-900 border border-zinc-800 text-yellow-500 py-6 rounded-[2rem] font-black uppercase text-[10px] tracking-[0.4em] hover:bg-yellow-500 hover:text-black hover:border-yellow-500 transition-all flex items-center justify-center gap-4">
+                      Briefing de Missão <ChevronRight size={18} />
+                    </button>
                   </div>
                 </div>
               ))}
@@ -383,65 +205,90 @@ const App: React.FC = () => {
         {currentView === 'tracking' && <RouteTracker />}
 
         {currentView === 'gallery' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 h-full">
-            <header>
-              <h2 className="text-4xl font-oswald font-bold uppercase text-white italic">Nossa <span className="text-yellow-500">Galeria</span></h2>
-              <p className="text-zinc-400 mt-2">Registros históricos e momentos da irmandade em Aparecida.</p>
-            </header>
-
-            <div className="relative bg-zinc-900 rounded-[3rem] border border-zinc-800 overflow-hidden min-h-[500px] flex flex-col items-center justify-center p-12 text-center shadow-2xl">
-              <div className="absolute inset-0 opacity-10 grayscale">
-                <img src="https://images.unsplash.com/photo-1558981403-c5f91cbba527?q=80&w=2070&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
-              </div>
-              
-              <div className="relative z-10 space-y-8 max-w-xl">
-                <div className="bg-yellow-500/10 p-6 rounded-full w-fit mx-auto border border-yellow-500/20">
-                  <ImageIcon size={64} className="text-yellow-500" />
-                </div>
-                <h3 className="text-3xl font-oswald font-bold text-white uppercase italic">Explore Nossa História no <span className="text-blue-500">Facebook</span></h3>
-                <p className="text-zinc-400 text-lg leading-relaxed">
-                  Mantemos nossa galeria oficial atualizada em nossa página do Facebook. Clique no botão abaixo para ver as fotos das nossas últimas rotas, eventos e encontros.
-                </p>
-                <a 
-                  href="https://www.facebook.com/lamaaparecidabr/photos" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-yellow-500 hover:bg-yellow-600 text-black px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-xl shadow-yellow-500/20 uppercase tracking-widest"
-                >
-                  ACESSAR GALERIA OFICIAL <ExternalLink size={20} />
-                </a>
+          <div className="flex flex-col items-center justify-center min-h-[700px] text-center space-y-12 animate-in zoom-in-95 duration-1000">
+            <div className="relative">
+              <div className="absolute inset-0 bg-yellow-500/15 blur-[60px] rounded-full"></div>
+              <div className="bg-zinc-950 p-16 rounded-full border border-zinc-900 relative shadow-[0_50px_100px_-20px_rgba(0,0,0,1)]">
+                <ImageIcon size={100} className="text-yellow-500 opacity-80" />
               </div>
             </div>
+            <div className="space-y-6">
+              <h3 className="text-6xl font-oswald font-black text-white uppercase italic tracking-tighter">História em <span className="text-blue-500">Imagens</span></h3>
+              <p className="text-zinc-500 max-w-xl text-xl font-light leading-relaxed mx-auto">Nossos registros históricos e fotos de eventos oficiais são preservados em nossa rede social oficial.</p>
+            </div>
+            <a href="https://www.facebook.com/lamaaparecidabr/photos" target="_blank" rel="noreferrer" className="bg-zinc-900 hover:bg-yellow-500 hover:text-black border border-zinc-800 text-white px-16 py-7 rounded-[2.5rem] font-black uppercase tracking-[0.4em] text-[11px] flex items-center gap-5 transition-all transform hover:scale-105 shadow-2xl">
+              Ver Álbuns Oficiais <ExternalLink size={20} />
+            </a>
           </div>
         )}
 
         {currentView === 'profile' && (
-          <div className="max-w-4xl mx-auto space-y-12 animate-in zoom-in-95 duration-500">
-            <div className="bg-zinc-900 p-12 rounded-[40px] border border-zinc-800 flex flex-col md:flex-row items-center gap-10 shadow-2xl">
+          <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-12 duration-1000">
+            <div className="bg-zinc-950 p-20 rounded-[5rem] border border-zinc-900 flex flex-col md:flex-row items-center gap-20 shadow-[0_60px_120px_-30px_rgba(0,0,0,1)] relative overflow-hidden">
+              <div className="absolute -top-20 -right-20 w-[400px] h-[400px] bg-yellow-500/5 blur-[120px] rounded-full"></div>
               <div className="relative">
-                <img src={user?.avatar} alt="Avatar" className="w-40 h-40 rounded-[35px] border-4 border-yellow-500 object-cover" />
-                <div className="absolute -bottom-2 -right-2 bg-red-600 p-3 rounded-2xl shadow-lg border-4 border-zinc-900">
-                  <Camera size={24} className="text-white" />
+                <div className="absolute inset-0 border-2 border-yellow-500 rounded-[4rem] rotate-12 scale-110 opacity-20 animate-pulse"></div>
+                <img src={user?.avatar} alt="Avatar" className="relative w-72 h-72 rounded-[4rem] border-8 border-zinc-900 object-cover shadow-3xl" />
+                <div className="absolute -bottom-6 -right-6 bg-red-600 p-4 rounded-3xl shadow-xl">
+                  <Shield size={32} className="text-white" />
                 </div>
               </div>
-              <div className="text-center md:text-left space-y-4">
-                <h2 className="text-5xl font-oswald font-bold text-white tracking-tighter uppercase italic">{user?.name}</h2>
-                <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                  <div className="bg-zinc-950 border border-zinc-800 px-5 py-2 rounded-2xl flex items-center gap-2">
-                    <Bike size={18} className="text-yellow-500" />
-                    <span className="text-zinc-300 font-medium">{user?.bikeModel}</span>
+              <div className="text-center md:text-left space-y-10 relative">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center md:justify-start gap-3">
+                    <span className="bg-yellow-500 text-black text-[9px] font-black uppercase px-3 py-1 rounded-md tracking-[0.3em]">Elite L.A.M.A.</span>
+                    <span className="text-zinc-600 font-black uppercase tracking-[0.4em] text-[10px]">Membro Capitão</span>
                   </div>
-                  <div className="bg-zinc-950 border border-zinc-800 px-5 py-2 rounded-2xl flex items-center gap-2">
-                    <MapIcon size={18} className="text-red-600" />
-                    <span className="text-zinc-300 font-medium">12 Rotas Concluídas</span>
+                  <h2 className="text-7xl md:text-8xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">{user?.name}</h2>
+                </div>
+                <div className="flex flex-wrap justify-center md:justify-start gap-8">
+                  <div className="flex items-center gap-6 bg-zinc-900/40 border border-zinc-800/50 px-10 py-6 rounded-[2.2rem] text-zinc-300 backdrop-blur-md">
+                    <Bike size={32} className="text-yellow-500" />
+                    <div className="flex flex-col text-left">
+                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">Montaria</span>
+                       <span className="font-bold text-white text-xl">{user?.bikeModel}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-6 bg-zinc-900/40 border border-zinc-800/50 px-10 py-6 rounded-[2.2rem] text-zinc-300 backdrop-blur-md">
+                    <Trophy size={32} className="text-red-600" />
+                    <div className="flex flex-col text-left">
+                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">Distinção</span>
+                       <span className="font-bold text-white text-xl">Honra Capitular</span>
+                    </div>
                   </div>
                 </div>
-                <p className="text-zinc-500 max-w-lg italic">"Andar de moto é o jeito mais rápido de chegar à paz de espírito. Orgulho L.A.M.A. Aparecida."</p>
               </div>
             </div>
           </div>
         )}
       </main>
+
+      {insights && insights !== 'carregando' && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl animate-in fade-in duration-500">
+          <div className="bg-zinc-950 border border-zinc-900 p-16 rounded-[4.5rem] max-w-2xl w-full relative shadow-[0_100px_200px_-50px_rgba(0,0,0,1)] ring-1 ring-white/10">
+            <button onClick={() => setInsights(null)} className="absolute top-12 right-12 text-zinc-600 hover:text-white transition-all uppercase font-black text-[11px] tracking-[0.3em] flex items-center gap-2">Fechar Mission Briefing ✕</button>
+            <div className="flex items-center gap-6 mb-12">
+              <div className="p-4 bg-yellow-500 rounded-3xl shadow-xl shadow-yellow-500/20"><Shield size={32} className="text-black" /></div>
+              <h3 className="text-4xl font-oswald font-black text-white uppercase italic tracking-tighter leading-none">Análise <span className="text-yellow-500">Tática de Rota</span></h3>
+            </div>
+            <div className="space-y-8">
+              <div className="space-y-5">
+                {insights.safetyTips.map((tip: string, i: number) => (
+                  <div key={i} className="flex gap-6 p-7 bg-zinc-900/40 rounded-[2rem] border border-zinc-800/40 text-zinc-300 text-lg leading-relaxed group hover:bg-zinc-900 transition-colors">
+                    <span className="text-yellow-500 font-black italic text-2xl shrink-0">0{i+1}</span>
+                    <p className="font-light">{tip}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="p-10 bg-yellow-500/5 rounded-[3rem] border border-yellow-500/10 italic text-zinc-400 text-center relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent"></div>
+                <div className="text-yellow-500 font-black uppercase text-[10px] tracking-[0.5em] mb-4">Destaque Paisagístico</div>
+                <span className="text-white text-2xl font-light">"{insights.scenicHighlight}"</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
