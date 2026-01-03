@@ -150,7 +150,7 @@ const App: React.FC = () => {
               <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black via-transparent to-transparent"></div>
               <iframe 
                 className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-1000 scale-110 group-hover:scale-100"
-                src="https://www.youtube.com/embed/S_7iW5D6pSw?autoplay=1&mute=1&loop=1&playlist=S_7iW5D6pSw&controls=0&modestbranding=1&rel=0&showinfo=0" 
+                src="https://youtu.be/-VzuMRXCizo" 
                 frameBorder="0"
                 allow="autoplay"
               ></iframe>
