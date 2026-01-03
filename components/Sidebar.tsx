@@ -14,7 +14,7 @@ const LAMA_LOGO_URL = 'https://raw.githubusercontent.com/lamaaparecidabr-lab/LAM
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout }) => {
   const menuItems = [
     { id: 'home', icon: Home, label: 'Início' },
-    { id: 'clubhouse', icon: MapPin, label: 'Casa Club' },
+    { id: 'clubhouse', icon: MapPin, label: 'Sede' },
     { id: 'explorer', icon: Compass, label: 'Icônicas' },
     { id: 'tracking', icon: Radio, label: 'Gravar' },
     { id: 'my-routes', icon: Map, label: 'Rotas' },
@@ -81,27 +81,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, onLogout
         </div>
       </aside>
 
-      {/* Mobile Bottom Navigation - Updated with Clubhouse */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-1 py-3 z-[2000] flex justify-around items-center shadow-[0_-15px_50px_rgba(0,0,0,0.9)]">
-        {menuItems.slice(0, 5).map((item) => (
+      {/* Mobile Bottom Navigation - Agora com todos os itens incluindo Perfil */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-2xl border-t border-zinc-900 px-0.5 py-3 z-[2000] flex justify-around items-center shadow-[0_-15px_50px_rgba(0,0,0,0.9)] overflow-x-auto">
+        <div className="flex w-full justify-around min-w-max px-2">
+          {menuItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setView(item.id as View)}
+              className={`flex flex-col items-center gap-1.5 px-2.5 py-1 rounded-xl transition-all ${
+                currentView === item.id ? 'text-yellow-500 scale-110' : 'text-zinc-600'
+              }`}
+            >
+              <item.icon size={16} strokeWidth={currentView === item.id ? 3 : 2} />
+              <span className="text-[6px] font-black uppercase tracking-widest leading-none">{item.label}</span>
+            </button>
+          ))}
           <button
-            key={item.id}
-            onClick={() => setView(item.id as View)}
-            className={`flex flex-col items-center gap-1.5 px-2 py-2 rounded-2xl transition-all ${
-              currentView === item.id ? 'text-yellow-500' : 'text-zinc-600'
-            }`}
+            onClick={onLogout}
+            className="flex flex-col items-center gap-1.5 px-2.5 py-1 text-red-600/70"
           >
-            <item.icon size={18} strokeWidth={currentView === item.id ? 3 : 2} />
-            <span className="text-[7px] font-black uppercase tracking-widest">{item.label}</span>
+            <LogOut size={16} />
+            <span className="text-[6px] font-black uppercase tracking-widest leading-none">Sair</span>
           </button>
-        ))}
-        <button
-          onClick={onLogout}
-          className="flex flex-col items-center gap-1.5 px-2 py-2 text-red-600/70"
-        >
-          <LogOut size={18} />
-          <span className="text-[7px] font-black uppercase tracking-widest">Sair</span>
-        </button>
+        </div>
       </nav>
     </>
   );
