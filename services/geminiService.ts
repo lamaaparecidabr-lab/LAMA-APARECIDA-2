@@ -1,8 +1,8 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-/* Always use the direct process.env.API_KEY for initialization as per guidelines */
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+/* A chave API é injetada pelo Vite via 'define' no config */
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
 export const getRouteInsights = async (routeName: string, location: string) => {
   try {
@@ -24,9 +24,18 @@ export const getRouteInsights = async (routeName: string, location: string) => {
         }
       }
     });
-    return JSON.parse(response.text);
+
+    const text = response.text;
+    if (!text) {
+      throw new Error("Resposta vazia do modelo");
+    }
+
+    return JSON.parse(text);
   } catch (error) {
     console.error("Erro no Gemini:", error);
-    return null;
+    return {
+      safetyTips: ["Mantenha a manutenção em dia", "Use equipamentos de proteção", "Respeite a sinalização local"],
+      scenicHighlight: "As belas estradas do cerrado goiano."
+    };
   }
 };
