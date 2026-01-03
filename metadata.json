@@ -1,0 +1,7 @@
+{
+  "name": "L.A.M.A. Aparecida - Brasil",
+  "description": "Plataforma oficial do L.A.M.A. Aparecida - Brasil para planejamento e registro de rotas.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
