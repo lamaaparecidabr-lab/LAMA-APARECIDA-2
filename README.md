@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# L.A.M.A. Aparecida - Sede Virtual
 
-This contains everything you need to run your app locally.
+Este é o aplicativo oficial do capítulo L.A.M.A. Aparecida de Goiânia.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1nBTKJBL6nzHBhYcEAwc3k6oU2eWeU4g4
+## 🚀 Como publicar no Vercel
 
-## Run Locally
+1. **GitHub**: Crie um repositório no seu GitHub e suba todos os arquivos desta pasta.
+2. **Vercel**:
+   - Vá para [vercel.com](https://vercel.com) e conecte sua conta do GitHub.
+   - Importe o repositório que você acabou de criar.
+   - **IMPORTANTE**: Nas configurações de "Environment Variables" (Variáveis de Ambiente), adicione:
+     - Nome: `API_KEY`
+     - Valor: Sua chave da API do Google Gemini (obtenha em [ai.google.dev](https://ai.google.dev)).
+3. **Build**: O Vercel detectará automaticamente as configurações do Vite e fará o deploy.
 
-**Prerequisites:**  Node.js
+## 🛠️ Tecnologias
+- **React 19** + **TypeScript**
+- **Vite** (Build Tool)
+- **Tailwind CSS** (Estilização)
+- **Google Gemini API** (Inteligência para roteiros)
+- **Leaflet** (Mapas e Telemetria)
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+*Respeito & Liberdade - L.A.M.A. Aparecida*
